@@ -1,7 +1,7 @@
-use bignum::BigNum;
+use bignum::{BigNum, BigNumTrait};
 use bignum::fields::bn254Fq::BN254_Fq_Params;
 use std::hash::poseidon2::Poseidon2::hash;
-use trees::sparse_merkle::SparseMerkleTree;
+use trees::sparse_merkle::{SparseMerkleTree, SMT_Creator, Modifier, NonMembershipProver};
 
 type BN = BigNum<3, 254, BN254_Fq_Params>;
 
@@ -25,7 +25,7 @@ fn test_sparse_merkle_tree_add_bignum() {
         0x412fba0629bcca2a2295b619e5c5c6,
         0x03fa,
     ]);
-    let siblings: [BN; 254] = [BN::new(); 254];
+    let siblings: [BN; 254] = [BN::zero(); 254];
     smt.add((key, value), 0x01, siblings);
     assert(
         smt.root
@@ -87,8 +87,7 @@ fn test_sparse_merkle_tree_non_membership_bignum() {
         0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFE,
     ]);
 
-    let entry = (key, value);
-    let mut siblings: [BN; 254] = [BN::new(); 254];
+    let mut siblings: [BN; 254] = [BN::zero(); 254];
     siblings[253] = BN::from_slice([
         0x1be857787743ed2a6e1243c3c4234c,
         0x282e99f6ba97ce4a5e6c6dcc1987b3,
