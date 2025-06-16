@@ -1,7 +1,7 @@
 use bignum::{BigNum, BigNumTrait};
 use bignum::fields::bn254Fq::BN254_Fq_Params;
 use std::hash::poseidon2::Poseidon2::hash;
-use trees::sparse_merkle::{SparseMerkleTree, SMT_Creator, Modifier, NonMembershipProver};
+use trees::sparse_merkle::{Modifier, NonMembershipProver, SMT_Creator, SparseMerkleTree};
 
 type BN = BigNum<3, 254, BN254_Fq_Params>;
 

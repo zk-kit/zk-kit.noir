@@ -122,7 +122,7 @@ where
      * @returns The calculated root node
      */
     fn calculate_root<let N: u32>(self, entry: (T, T), indexes: Field, hash_path: [T; N]) -> T {
-        let index_bits: [u1; N] = indexes.to_be_bits(); // TODO: does to_be_bits range check the output array? 
+        let index_bits: [u1; N] = indexes.to_be_bits(); // TODO: does to_be_bits range check the output array?
 
         // serves as container for hashes and is initialized to be the leaf node
         let mut node = (self.leaf_hasher)([entry.0, entry.1, T::default()]);

@@ -48,4 +48,5 @@ jobs:
 
       # As this is a library, we do not allow compiler warnings
       - run: nargo check --deny-warnings
+      - run: nargo fmt --check
       - run: nargo test

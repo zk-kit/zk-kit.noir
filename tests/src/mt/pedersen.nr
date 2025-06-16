@@ -1,5 +1,5 @@
 use std::hash::pedersen_hash;
-use trees::merkle::{MerkleTree, Modifier, MembershipProver, MT_Creator};
+use trees::merkle::{MembershipProver, MerkleTree, Modifier, MT_Creator};
 
 #[test]
 fn test_merkle_tree_membership() {
