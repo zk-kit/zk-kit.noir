@@ -39,7 +39,13 @@ impl Modifier<Field> for MerkleTree {
         self.root = new;
     }
 
-    fn update<let N: u32>(&mut self, leaf: Field, old_leaf: Field, indexes: Field, hash_path: [Field; N]) {
+    fn update<let N: u32>(
+        &mut self,
+        leaf: Field,
+        old_leaf: Field,
+        indexes: Field,
+        hash_path: [Field; N],
+    ) {
         let index_bits: [u1; N] = indexes.to_le_bits();
 
         let mut old_parent = old_leaf;
@@ -61,7 +67,12 @@ impl Modifier<Field> for MerkleTree {
 }
 
 impl Calculator<Field> for MerkleTree {
-    fn calculate_root<let N: u32>(self, leaf: Field, indexes: Field, hash_path: [Field; N]) -> Field {
+    fn calculate_root<let N: u32>(
+        self,
+        leaf: Field,
+        indexes: Field,
+        hash_path: [Field; N],
+    ) -> Field {
         let index_bits: [u1; N] = indexes.to_le_bits();
         let mut node = leaf;
         for i in 0..hash_path.len() {
@@ -88,7 +99,12 @@ impl Calculator<Field> for MerkleTree {
      * @param siblings Contains the siblings from bottom to top
      * @returns Two root nodes: the first one doesn't include entry, the second does
      */
-    fn calculate_two_roots<let N: u32>(self, leaf: Field, indexes: Field, hash_path: [Field; N]) -> (Field, Field) {
+    fn calculate_two_roots<let N: u32>(
+        self,
+        leaf: Field,
+        indexes: Field,
+        hash_path: [Field; N],
+    ) -> (Field, Field) {
         let index_bits: [u1; N] = indexes.to_be_bits();
 
         // root_with_leaf is a container for hashes to derive the root node for the tree that

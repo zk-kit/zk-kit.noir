@@ -3,7 +3,12 @@ use super::sparse_merkle::SparseMerkleTree;
 
 pub trait Calculator<T> {
     fn calculate_root<let N: u32>(self, entry: T, indexes: Field, hash_path: [Field; N]) -> Field;
-    fn calculate_two_roots<let N: u32>(self, entry: T, indexes: Field, hash_path: [Field; N]) -> (Field, Field);
+    fn calculate_two_roots<let N: u32>(
+        self,
+        entry: T,
+        indexes: Field,
+        hash_path: [Field; N],
+    ) -> (Field, Field);
 }
 
 pub trait EntryMark {
@@ -22,13 +27,20 @@ pub trait SMT_Creator {
      * @param hasher The hash function that is used to hash the nodes of the tree
      * @param root The root of the tree
      */
-    fn from(root: Field, leaf_hasher: fn([Field; 3]) -> Field, hasher: fn([Field; 2]) -> Field) -> SparseMerkleTree;
+    fn from(
+        root: Field,
+        leaf_hasher: fn([Field; 3]) -> Field,
+        hasher: fn([Field; 2]) -> Field,
+    ) -> SparseMerkleTree;
 
     /**
      * Creates a new Sparse Merkle Tree (SparseMerkleTree) instance.
      * @param hasher The hash function that is used to hash the nodes of the tree
      */
-    fn new(leaf_hasher: fn([Field; 3]) -> Field, hasher: fn([Field; 2]) -> Field) -> SparseMerkleTree;
+    fn new(
+        leaf_hasher: fn([Field; 3]) -> Field,
+        hasher: fn([Field; 2]) -> Field,
+    ) -> SparseMerkleTree;
 }
 
 pub trait MT_Creator {
@@ -66,7 +78,12 @@ pub trait NonMembershipProver {
      * @param matching_entry Contains (key, value) of a matching entry
      * @param siblings Contains array of siblings the matching_entry
      */
-    fn non_membership<let N: u32>(self, matching_entry: (Field, Field), index: Field, siblings: [Field; N]);
+    fn non_membership<let N: u32>(
+        self,
+        matching_entry: (Field, Field),
+        index: Field,
+        siblings: [Field; N],
+    );
 }
 
 pub trait Modifier<T> {
@@ -95,5 +112,11 @@ pub trait Modifier<T> {
      * @param old_entry Contains key and value of the entry to be updated: (key, value)
      * @param siblings The siblings (and indices for MT proofs)
      */
-    fn update<let N: u32>(&mut self, new_value: T, old_entry: T, index: Field, hash_path: [Field; N]);
+    fn update<let N: u32>(
+        &mut self,
+        new_value: T,
+        old_entry: T,
+        index: Field,
+        hash_path: [Field; N],
+    );
 }

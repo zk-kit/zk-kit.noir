@@ -5,36 +5,50 @@ use trees::sparse_merkle::{
 
 #[test]
 fn test_verify_membership_proof() {
-    let root = 0x7ca084dd359e77ce4a7a683ccd717c45ecee547a73e73fd1a1cb62ec2a30961;
+    // const smt = new SMT(pedersen, /*bigNumbers=*/ true)
+    // await smt.add(1n, 1n);
+    // await smt.add(2n, 1n);
+    // await smt.add(3n, 1n);
+    // console.log(await smt.createProof(3n));
+
+    let root = 3439023489997334517340272627539669774252862926023359414968830614710567119971;
     let smt = SparseMerkleTree::from(root, pedersen_hash, pedersen_hash);
 
-    let key = 0x01;
+    let key = 0x03;
     let value = 0x01;
     let entry = (key, value);
     let mut siblings: [Field; 254] = [0; 254];
-    siblings[252] = 0x1a68908828c1c04d18fffa09d2357ac40e717b27a3dbf3f793cdb3fe27d6d17b;
-    siblings[253] = 0x206456a6a1f0ee74ce95061dfbbc35ddc4ac3644988b324b5fe50e77215f1702;
+    siblings[252] = 12370909072915806427988438183920359632375878301691967399275296521385347658529;
+    siblings[253] = 11366775620726042635177670832665911414620763237784497684881724129107587672687;
 
     smt.membership(entry, entry.0, siblings);
 }
 
 #[test]
 fn test_verify_non_membership_proof() {
-    let root = 0x7ca084dd359e77ce4a7a683ccd717c45ecee547a73e73fd1a1cb62ec2a30961;
+    // const smt = new SMT(pedersen, /*bigNumbers=*/ true)
+    // await smt.add(1n, 1n);
+    // await smt.add(2n, 1n);
+    // await smt.add(3n, 1n);
+    // console.log(await smt.createProof(5n));
+
+    let root = 3439023489997334517340272627539669774252862926023359414968830614710567119971;
     let smt = SparseMerkleTree::from(root, pedersen_hash, pedersen_hash);
 
-    let key = 0x04;
-    let value = 0x04;
-    let entry = (key, value);
-    let matching_entry = (0x02, 0x02);
+    let key = 0x05;
+    let matching_entry = (0x01, 0x01);
     let mut siblings: [Field; 254] = [0; 254];
-    siblings[253] = 0x1891383341c9ba47346ab2cf7dfcf6ba42491d17f3fa692a5c1029732029aa53;
+    siblings[252] = 3710803976499088632826613451666944763817750663979943222410841648797656524311;
+    siblings[253] = 11366775620726042635177670832665911414620763237784497684881724129107587672687;
 
-    smt.non_membership(matching_entry, entry.0, siblings);
+    smt.non_membership(matching_entry, key, siblings);
 }
 
 #[test]
 fn test_add_first_element() {
+    // const smt = new SMT(pedersen, /*bigNumbers=*/ true)
+    // await smt.add(1n, 1n);
+    // console.log(await smt.createProof(1n));
     let mut smt = SparseMerkleTree::new(pedersen_hash, pedersen_hash);
 
     let key = 0x01;
@@ -43,73 +57,107 @@ fn test_add_first_element() {
     let siblings: [Field; 254] = [0; 254];
 
     smt.add(entry, entry.0, siblings);
-    assert(smt.root == 0xe51bb5b5db9cc2c7dfd9c38ed5db39f784973f7235da39923a78793b28fe13a);
+    assert(
+        smt.root == 12370909072915806427988438183920359632375878301691967399275296521385347658529,
+    );
 }
 
 #[test]
 fn test_add_element_to_one_element_tree() {
-    let root = 0xe51bb5b5db9cc2c7dfd9c38ed5db39f784973f7235da39923a78793b28fe13a;
+    // const smt = new SMT(pedersen, /*bigNumbers=*/ true)
+    // await smt.add(1n, 1n);
+    // await smt.add(2n, 1n);
+    // console.log(await smt.createProof(2n));
+
+    let root = 12370909072915806427988438183920359632375878301691967399275296521385347658529;
     let mut smt = SparseMerkleTree::from(root, pedersen_hash, pedersen_hash);
 
     let key = 0x02;
-    let value = 0x02;
+    let value = 0x01;
     let entry = (key, value);
     let mut siblings: [Field; 254] = [0; 254];
-    siblings[253] = 0xe51bb5b5db9cc2c7dfd9c38ed5db39f784973f7235da39923a78793b28fe13a;
+    siblings[253] = 12370909072915806427988438183920359632375878301691967399275296521385347658529;
 
     smt.add(entry, entry.0, siblings);
-    assert(smt.root == 0x2d395dd3307368077b47a4841cc7cf2bf37281e2de15be3ed50a4d96fda04072);
+    assert(
+        smt.root == 2743707517940053166706827311251601830213132317720096824374730149304699404864,
+    );
 }
 
 #[test]
 fn test_add_element_to_existing_tree() {
-    let root = 0x2d395dd3307368077b47a4841cc7cf2bf37281e2de15be3ed50a4d96fda04072;
+    // const smt = new SMT(pedersen, /*bigNumbers=*/ true)
+    // await smt.add(1n, 1n);
+    // await smt.add(2n, 1n);
+    // await smt.add(3n, 1n);
+    // console.log(await smt.createProof(2n));
+
+    let root = 2743707517940053166706827311251601830213132317720096824374730149304699404864;
     let mut smt = SparseMerkleTree::from(root, pedersen_hash, pedersen_hash);
 
     let key = 0x03;
-    let value = 0x03;
+    let value = 0x01;
     let entry = (key, value);
     let mut siblings: [Field; 254] = [0; 254];
-    siblings[252] = 0xe51bb5b5db9cc2c7dfd9c38ed5db39f784973f7235da39923a78793b28fe13a;
-    siblings[253] = 0x206456a6a1f0ee74ce95061dfbbc35ddc4ac3644988b324b5fe50e77215f1702;
-    let big_tree_root = 0x7ca084dd359e77ce4a7a683ccd717c45ecee547a73e73fd1a1cb62ec2a30961;
+    siblings[252] = 12370909072915806427988438183920359632375878301691967399275296521385347658529;
+    siblings[253] = 11366775620726042635177670832665911414620763237784497684881724129107587672687;
 
     smt.add(entry, entry.0, siblings);
-    assert(smt.root == big_tree_root);
+    assert(
+        smt.root == 3439023489997334517340272627539669774252862926023359414968830614710567119971,
+    );
 }
 
 #[test]
 fn test_delete() {
-    let root = 0x7ca084dd359e77ce4a7a683ccd717c45ecee547a73e73fd1a1cb62ec2a30961;
+    // const smt = new SMT(pedersen, /*bigNumbers=*/ true)
+    // await smt.add(1n, 1n);
+    // await smt.add(2n, 1n);
+    // await smt.add(3n, 1n);
+    // console.log(await smt.createProof(3n));
+    // await smt.delete(3n);
+    // console.log(smt.root)
+
+    let root = 3439023489997334517340272627539669774252862926023359414968830614710567119971;
     let mut smt = SparseMerkleTree::from(root, pedersen_hash, pedersen_hash);
 
     let key = 0x03;
-    let value = 0x03;
+    let value = 0x01;
     let entry = (key, value);
     let mut siblings: [Field; 254] = [0; 254];
-    siblings[252] = 0xe51bb5b5db9cc2c7dfd9c38ed5db39f784973f7235da39923a78793b28fe13a;
-    siblings[253] = 0x206456a6a1f0ee74ce95061dfbbc35ddc4ac3644988b324b5fe50e77215f1702;
-    let small_tree_root = 0x2d395dd3307368077b47a4841cc7cf2bf37281e2de15be3ed50a4d96fda04072;
+    siblings[252] = 12370909072915806427988438183920359632375878301691967399275296521385347658529;
+    siblings[253] = 11366775620726042635177670832665911414620763237784497684881724129107587672687;
 
     smt.delete(entry, entry.0, siblings);
-    assert(smt.root == small_tree_root);
+    assert(
+        smt.root == 2743707517940053166706827311251601830213132317720096824374730149304699404864,
+    );
 }
 
 #[test]
 fn test_update() {
-    let root = 0x7ca084dd359e77ce4a7a683ccd717c45ecee547a73e73fd1a1cb62ec2a30961;
+    // const smt = new SMT(pedersen, /*bigNumbers=*/ true)
+    // await smt.add(1n, 1n);
+    // await smt.add(2n, 1n);
+    // await smt.add(3n, 1n);
+    // console.log(await smt.createProof(3n));
+    // await smt.update(3n, 2n);
+    // console.log(smt.root);
+
+    let root = 3439023489997334517340272627539669774252862926023359414968830614710567119971;
     let mut smt = SparseMerkleTree::from(root, pedersen_hash, pedersen_hash);
 
     let key = 0x03;
-    let old_value = 0x03;
-    let new_value = 0x04;
+    let old_value = 0x01;
+    let new_value = 0x02;
     let old_entry = (key, old_value);
     let new_entry = (key, new_value);
     let mut siblings: [Field; 254] = [0; 254];
-    siblings[252] = 0xe51bb5b5db9cc2c7dfd9c38ed5db39f784973f7235da39923a78793b28fe13a;
-    siblings[253] = 0x206456a6a1f0ee74ce95061dfbbc35ddc4ac3644988b324b5fe50e77215f1702;
-    let big_tree_root = 0x1136738f1460de1ca7bc0c64ed09046070f8e47f5bfa045013262dbce1e0ab3a;
+    siblings[252] = 12370909072915806427988438183920359632375878301691967399275296521385347658529;
+    siblings[253] = 11366775620726042635177670832665911414620763237784497684881724129107587672687;
 
     smt.update(new_entry, old_entry, old_entry.0, siblings);
-    assert(smt.root == big_tree_root);
+    assert(
+        smt.root == 15173714637614968026038664633344727571083254758879871186915150224086765726948,
+    );
 }

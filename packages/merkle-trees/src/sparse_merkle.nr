@@ -7,11 +7,19 @@ pub struct SparseMerkleTree {
 }
 
 impl SMT_Creator for SparseMerkleTree {
-    fn default(root: Field, leaf_hasher: fn([Field; 3]) -> Field, hasher: fn([Field; 2]) -> Field) -> Self {
+    fn default(
+        root: Field,
+        leaf_hasher: fn([Field; 3]) -> Field,
+        hasher: fn([Field; 2]) -> Field,
+    ) -> Self {
         Self { root, leaf_hasher, hasher }
     }
 
-    fn from(root: Field, leaf_hasher: fn([Field; 3]) -> Field, hasher: fn([Field; 2]) -> Field) -> Self {
+    fn from(
+        root: Field,
+        leaf_hasher: fn([Field; 3]) -> Field,
+        hasher: fn([Field; 2]) -> Field,
+    ) -> Self {
         Self::default(root, leaf_hasher, hasher)
     }
 
@@ -29,7 +37,12 @@ impl MembershipProver<(Field, Field)> for SparseMerkleTree {
 }
 
 impl NonMembershipProver for SparseMerkleTree {
-    fn non_membership<let N: u32>(self, matching_entry: (Field, Field), index: Field, siblings: [Field; N]) {
+    fn non_membership<let N: u32>(
+        self,
+        matching_entry: (Field, Field),
+        index: Field,
+        siblings: [Field; N],
+    ) {
         if (self.root != Field::default()) {
             // non-membership proof: the root is calculated based on the matching_entry, the siblings
             // and the path that is determined by the key of entry. This makes sure that matching_entry is in fact
@@ -106,7 +119,12 @@ impl Calculator<(Field, Field)> for SparseMerkleTree {
      * @param path The position of the entry in the tree as represented by bits from bottom to top
      * @returns The calculated root node
      */
-    fn calculate_root<let N: u32>(self, entry: (Field, Field), indexes: Field, hash_path: [Field; N]) -> Field {
+    fn calculate_root<let N: u32>(
+        self,
+        entry: (Field, Field),
+        indexes: Field,
+        hash_path: [Field; N],
+    ) -> Field {
         let index_bits: [u1; N] = indexes.to_be_bits(); // TODO: does to_be_bits range check the output array?
 
         // serves as container for hashes and is initialized to be the leaf node
