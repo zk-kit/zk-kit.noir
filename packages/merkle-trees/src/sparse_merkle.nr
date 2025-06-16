@@ -125,7 +125,7 @@ impl Calculator<(Field, Field)> for SparseMerkleTree {
         indexes: Field,
         hash_path: [Field; N],
     ) -> Field {
-        let index_bits: [u1; N] = indexes.to_be_bits(); // TODO: does to_be_bits range check the output array?
+        let index_bits: [u1; N] = indexes.to_be_bits();
 
         // serves as container for hashes and is initialized to be the leaf node
         let mut node = (self.leaf_hasher)([entry.0, entry.1, Field::from(1)]);
