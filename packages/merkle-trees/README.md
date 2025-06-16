@@ -25,8 +25,6 @@ At this moment, library suppors only trees with arity 2, meaning two children pe
 
 Since every node is the hash of its children, you need to define a hasher of type `fn [T; 2] -> T`.
 
-You can use any type you want for the leaves as long as they implement both the [Default](https://noir-lang.org/docs/noir/standard_library/traits#stddefault) and the [Eq](https://noir-lang.org/docs/noir/standard_library/traits#stdcmpeq) traits. Check out the tests for an example using Noir Bignums.
-
 ### Examples
 
 A Merkle Tree:
@@ -55,11 +53,6 @@ fn main(entry: Field, paths: [Field; 0]) {
 The Sparse Merkle Tree introduces some overhead but it's quite convenient, since the index of a leaf is determined by its hash. This makes it very useful to prove that a leaf is _not_ on the tree (since it cannot be found at its index). For this reason, it has a predefined depth of 254 accounting for 32-byte leaves.
 
 Similarly to the Merkle Tree, you need to provide a hasher, but also a leaf hasher. This is because the leaves are hashed with a default value to mark that they're leaves and not nodes.
-
-You can use any type you want for the leaves as long as they implement both the [Default](https://noir-lang.org/docs/noir/standard_library/traits#stddefault) and the [Eq](https://noir-lang.org/docs/noir/standard_library/traits#stdcmpeq) traits. Check out the tests for an example using Noir Bignums.
-
-> [!IMPORTANT]
-> The Default trait is needed because the leaf nodes are hashed with a "leaf marker". If you're following the [zk-kit JS implementation](https://github.com/privacy-scaling-explorations/zk-kit) you will find that the marker [defaults to 1](https://github.com/privacy-scaling-explorations/zk-kit/blob/54f175d06af2fe556367675f68e241b56bc4293b/packages/smt/src/smt.ts#L64C14-L64C23) and not 0.
 
 ### Example
 
