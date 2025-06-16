@@ -24,13 +24,61 @@ fn test_verify_non_membership_proof() {
     let smt = SparseMerkleTree::from(root, |h| hash(h, 3), |h| hash(h, 2));
 
     let key = 0x04;
-    let value = 0x04;
-    let entry = (key, value);
     let matching_entry = (0x02, 0x02);
     let mut siblings: [Field; 254] = [0; 254];
     siblings[253] = 0x2caff4d2bbd06504be02b53bf953596476bec9448d5a365c05daf1f39812f42;
 
-    smt.non_membership(matching_entry, entry.0, siblings);
+    smt.non_membership(matching_entry, key, siblings);
+}
+
+#[test]
+fn test_break_tree() {
+    
+    // Make a tree in typescrit
+    // const smt = new SMT(poseidon2, /*bigNumbers=*/ true)
+    // await smt.add(1n, 1n);
+    // await smt.add(3n, 1n);
+    // await smt.add(7n, 1n);
+
+    let root = 8713414482042819215983804782575951843853103995415192296712937443826390005614;
+    let smt = SparseMerkleTree::from(root, |h| hash(h, 3), |h| hash(h, 2));
+
+    // Can we prove that 9 does not exist in the tree, even though it should, as it contains a 0 in the hash path.
+    let key = 9;
+    let matching_entry = (1, 1);
+
+    let mut siblings = [0; 254];
+    siblings[253] = 815034891159063326522113492191426689504310664936700117102631673461483155091;
+
+    smt.non_membership(matching_entry, key, siblings);
+}
+
+// It should also work when the matching entry ends up being undefined. 
+// In this case it does not work, and we cannot prove non membership of the entry 2n, even though it is not in the tree
+
+// This should work
+#[test]
+fn test_one_non_inclusion() {
+    // Make a tree in typescript
+    // const smt = new SMT(poseidon2, /*bigNumbers=*/ true)
+
+    // await smt.add(0n, 1n);
+    // await smt.add(1n, 1n);
+    // await smt.add(3n, 1n);
+
+    let root = 2303121422260472849100122966319912943661567788597739446207139579234486076956;
+    let smt = SparseMerkleTree::from(root, |h| hash(h, 3), |h| hash(h, 2));
+
+    // proof that 1 does not exist in the tree, but the matching entry is 1, 1 - so it literally must exist in the tree
+    let key = 1;
+    let matching = (1, 1);
+
+    let mut siblings = [0; 254];
+    siblings[252] = 10491038750216827372905818545066985839831454851938278937578062954218492497577;
+    siblings[253] = 4925234744530858171417654075256589666688346860022878524242846880227987649233;
+ 
+
+    smt.non_membership(matching, key, siblings);
 }
 
 #[test]

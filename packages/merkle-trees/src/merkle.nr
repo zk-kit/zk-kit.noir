@@ -1,54 +1,45 @@
 pub use crate::types::{Calculator, MembershipProver, Modifier, MT_Creator};
 
-pub struct MerkleTree<T> {
-    pub root: T,
-    pub hasher: fn([T; 2]) -> T,
+pub struct MerkleTree {
+    pub root: Field,
+    pub hasher: fn([Field; 2]) -> Field,
 }
 
-impl<T> MT_Creator<T> for MerkleTree<T>
-where
-    T: Eq + Default,
-{
-    fn default(root: T, hasher: fn([T; 2]) -> T) -> Self {
+impl MT_Creator for MerkleTree {
+    fn default(root: Field, hasher: fn([Field; 2]) -> Field) -> Self {
         Self { root, hasher }
     }
 
-    fn from(root: T, hasher: fn([T; 2]) -> T) -> Self {
+    fn from(root: Field, hasher: fn([Field; 2]) -> Field) -> Self {
         Self::default(root, hasher)
     }
 
-    fn new(hasher: fn([T; 2]) -> T) -> Self {
-        Self::from(T::default(), hasher)
+    fn new(hasher: fn([Field; 2]) -> Field) -> Self {
+        Self::from(Field::default(), hasher)
     }
 }
 
-impl<T> MembershipProver<T, T> for MerkleTree<T>
-where
-    T: Eq + Default,
-{
-    fn membership<let N: u32>(self, leaf: T, indexes: Field, hash_path: [T; N]) {
+impl MembershipProver<Field> for MerkleTree {
+    fn membership<let N: u32>(self, leaf: Field, indexes: Field, hash_path: [Field; N]) {
         let root = self.calculate_root(leaf, indexes, hash_path);
         assert(self.root == root);
     }
 }
 
-impl<T> Modifier<T, T> for MerkleTree<T>
-where
-    T: Eq + Default,
-{
-    fn add<let N: u32>(&mut self, leaf: T, indexes: Field, hash_path: [T; N]) {
+impl Modifier<Field> for MerkleTree {
+    fn add<let N: u32>(&mut self, leaf: Field, indexes: Field, hash_path: [Field; N]) {
         let (old, new) = self.calculate_two_roots(leaf, indexes, hash_path);
         assert(old == self.root);
         self.root = new;
     }
 
-    fn delete<let N: u32>(&mut self, leaf: T, indexes: Field, hash_path: [T; N]) {
+    fn delete<let N: u32>(&mut self, leaf: Field, indexes: Field, hash_path: [Field; N]) {
         let (new, old) = self.calculate_two_roots(leaf, indexes, hash_path);
         assert(old == self.root);
         self.root = new;
     }
 
-    fn update<let N: u32>(&mut self, leaf: T, old_leaf: T, indexes: Field, hash_path: [T; N]) {
+    fn update<let N: u32>(&mut self, leaf: Field, old_leaf: Field, indexes: Field, hash_path: [Field; N]) {
         let index_bits: [u1; N] = indexes.to_le_bits();
 
         let mut old_parent = old_leaf;
@@ -69,11 +60,8 @@ where
     }
 }
 
-impl<T> Calculator<T, T> for MerkleTree<T>
-where
-    T: Eq + Default,
-{
-    fn calculate_root<let N: u32>(self, leaf: T, indexes: Field, hash_path: [T; N]) -> T {
+impl Calculator<Field> for MerkleTree {
+    fn calculate_root<let N: u32>(self, leaf: Field, indexes: Field, hash_path: [Field; N]) -> Field {
         let index_bits: [u1; N] = indexes.to_le_bits();
         let mut node = leaf;
         for i in 0..hash_path.len() {
@@ -100,7 +88,7 @@ where
      * @param siblings Contains the siblings from bottom to top
      * @returns Two root nodes: the first one doesn't include entry, the second does
      */
-    fn calculate_two_roots<let N: u32>(self, leaf: T, indexes: Field, hash_path: [T; N]) -> (T, T) {
+    fn calculate_two_roots<let N: u32>(self, leaf: Field, indexes: Field, hash_path: [Field; N]) -> (Field, Field) {
         let index_bits: [u1; N] = indexes.to_be_bits();
 
         // root_with_leaf is a container for hashes to derive the root node for the tree that
@@ -108,7 +96,7 @@ where
         let mut root_with_leaf = leaf;
         // root_without_leaf is a container for hashes to derive the root node for the tree that
         // doesn't include the entry
-        let mut root_without_leaf = T::default();
+        let mut root_without_leaf = Field::default();
 
         // iterate over the levels of the tree from bottom to top
         for i in 0..hash_path.len() {
