@@ -80,13 +80,6 @@ fn test_sparse_merkle_tree_non_membership_bignum() {
 
     let mut smt = SparseMerkleTree::from(root, hasher, hasher);
 
-    let key = BN::from_slice([0x01, 0x00, 0x00]);
-    let value = BN::from_slice([
-        0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,
-        0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,
-        0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFE,
-    ]);
-
     let mut siblings: [BN; 254] = [BN::zero(); 254];
     siblings[253] = BN::from_slice([
         0x1be857787743ed2a6e1243c3c4234c,

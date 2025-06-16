@@ -1,5 +1,5 @@
 use std::hash::poseidon2::Poseidon2::hash;
-use trees::sparse_merkle::SparseMerkleTree;
+use trees::sparse_merkle::{SparseMerkleTree, Modifier, NonMembershipProver, MembershipProver, SMT_Creator};
 
 #[test]
 fn test_verify_membership_proof() {

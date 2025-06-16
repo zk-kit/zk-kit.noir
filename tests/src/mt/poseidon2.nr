@@ -1,5 +1,5 @@
 use std::hash::poseidon2::Poseidon2::hash;
-use trees::merkle::MerkleTree;
+use trees::merkle::{MerkleTree, Modifier, MembershipProver, MT_Creator};
 
 #[test]
 fn test_merkle_tree_membership() {
