@@ -1,7 +1,6 @@
 use lazytower::tower::LazyTower;
 
 #[test]
-/// Integration test for a LazyTower proof with hardcoded inputs.
 fn test_lazy_tower_hash_chain() {
     // level_lengths = 0b0001_0001 = 17
     // This encodes level lengths [1, 1] for levels 0 and 1 (others are 0)
