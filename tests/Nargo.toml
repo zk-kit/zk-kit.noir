@@ -5,6 +5,7 @@ authors = ["signorecello", "vplasencia"]
 
 [dependencies]
 bignum = { git = "https://github.com/noir-lang/noir-bignum", tag = "v0.7.5" }
+lazytower = { path = "../packages/lazytower" }
 trees = { path = "../packages/merkle-trees" }
 ecdh = { path = "../packages/ecdh" }
 binary_merkle_root = { path = "../packages/binary-merkle-root" }
