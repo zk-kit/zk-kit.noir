@@ -126,7 +126,6 @@ where
 
         // serves as container for hashes and is initialized to be the leaf node
         let mut node = (self.leaf_hasher)([entry.0, entry.1, T::default()]);
-        println(node);
         // iterates over the list of siblings until the first sibling is found
         // arbitrarily assigns the sibling to be the left and the node to be the
         // right element of the hashing pair unless the path indicates the opposite
@@ -141,11 +140,9 @@ where
                     left = node;
                     right = sibling;
                 }
-                println(f"left {left} right {right}");
                 node = (self.hasher)([left, right]);
             }
         }
-        println(f"root {node}");
         node
     }
 
@@ -181,7 +178,7 @@ where
             // and starting from each SUBSEQUENT iteration it is hashed with its sibling and the resulting hash
             // again stored in the container until the root is reached
             if sibling != T::default() {
-                if hash_path[i - 1] == T::default() {
+                if (i > 0) & (hash_path[i - 1] == T::default()) {
                     root_without_leaf = hash_path[i];
                 }
 
