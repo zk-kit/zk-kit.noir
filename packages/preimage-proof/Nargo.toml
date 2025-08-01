@@ -1,0 +1,7 @@
+[package]
+name = "preimage_proof"
+authors = ["sumitvekariya"]
+compiler_version = ">=0.18.0"
+type = "lib"
+
+[dependencies]

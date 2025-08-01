@@ -8,3 +8,4 @@ bignum = { git = "https://github.com/noir-lang/noir-bignum", tag = "v0.6.0" }
 trees = { path = "../packages/merkle-trees" }
 ecdh = { path = "../packages/ecdh" }
 binary_merkle_root = { path = "../packages/binary-merkle-root" }
+preimage_proof = { path = "../packages/preimage-proof" }
