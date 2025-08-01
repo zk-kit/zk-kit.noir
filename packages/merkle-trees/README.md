@@ -21,7 +21,7 @@ And import it in your file.
 
 ## Merkle Tree
 
-At this moment, library suppors only trees with arity 2, meaning two children per node. It provides methods to create, add, delete and update leaves, as well as proving membership in the tree.
+At this moment, library supports only trees with arity 2, meaning two children per node. It provides methods to create, add, delete and update leaves, as well as proving membership in the tree.
 
 Since every node is the hash of its children, you need to define a hasher of type `fn [T; 2] -> T`.
 

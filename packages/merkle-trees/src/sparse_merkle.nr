@@ -173,7 +173,7 @@ where
         for i in 0..hash_path.len() {
             let sibling = hash_path[i];
             // After the first sibling is found, the processes are started to calculate the two root nodes.
-            // The calulcation of the root node that includes the entry is comparable to `calculate_root`.
+            // The calculation of the root node that includes the entry is comparable to `calculate_root`.
             // To calc the root node that doesn't include entry, the first sibling is put into the container
             // and starting from each SUBSEQUENT iteration it is hashed with its sibling and the resulting hash
             // again stored in the container until the root is reached
