@@ -101,7 +101,7 @@ where
      * @returns Two root nodes: the first one doesn't include entry, the second does
      */
     fn calculate_two_roots<let N: u32>(self, leaf: T, indexes: Field, hash_path: [T; N]) -> (T, T) {
-        let index_bits: [u1; N] = indexes.to_be_bits();
+        let index_bits: [u1; N] = indexes.to_le_bits();
 
         // root_with_leaf is a container for hashes to derive the root node for the tree that
         // includes the entry
