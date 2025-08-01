@@ -1,5 +1,5 @@
 use binary_merkle_root::binary_merkle_root;
-use std::hash::poseidon::bn254::hash_2 as poseidon2;
+use poseidon::poseidon::bn254::hash_2 as poseidon2;
 
 // These tests were generated using the LeanIMT library:
 // https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/lean-imt
