@@ -187,7 +187,8 @@ impl<let H: u32, let W: u32, let W_BITS: u32> LazyTower<H, W, W_BITS> {
         let mut s = 0;
 
         for lv in 0..H {
-            dummy[lv] = level_length_array[lv] as Field.to_le_bits();
+            let level_length_array_to_field = level_length_array[lv] as Field;
+            dummy[lv] = level_length_array_to_field.to_le_bits();
             assert(level_length_array[lv] <= W);
             assert((level_length_array[lv] != 0) == (ones[lv] == 1));
             s += level_length_array[lv] as Field * 2.pow_32(lv as Field * W_BITS as Field);
