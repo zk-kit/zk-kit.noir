@@ -1,4 +1,4 @@
-use std::hash::poseidon2::Poseidon2::hash;
+use poseidon::poseidon2::Poseidon2::hash;
 use trees::sparse_merkle::{
     MembershipProver, Modifier, NonMembershipProver, SMT_Creator, SparseMerkleTree,
 };
