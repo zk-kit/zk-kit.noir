@@ -177,11 +177,10 @@ where
             // To calc the root node that doesn't include entry, the first sibling is put into the container
             // and starting from each SUBSEQUENT iteration it is hashed with its sibling and the resulting hash
             // again stored in the container until the root is reached
+            if i == 0 {
+                root_without_leaf = hash_path[i];
+            }
             if sibling != T::default() {
-                if (i > 0) & (hash_path[i - 1] == T::default()) {
-                    root_without_leaf = hash_path[i];
-                }
-
                 if index_bits[i] != 0 {
                     root_with_leaf = (self.hasher)([sibling, root_with_leaf]);
                     if (root_without_leaf != sibling) {
