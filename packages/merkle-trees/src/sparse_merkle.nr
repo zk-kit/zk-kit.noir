@@ -178,7 +178,7 @@ where
             // and starting from each SUBSEQUENT iteration it is hashed with its sibling and the resulting hash
             // again stored in the container until the root is reached
             if sibling != T::default() {
-                if (i > 0) & (hash_path[i - 1] == T::default()) {
+                if (i > 0) && (hash_path[i - 1] == T::default()) {
                     root_without_leaf = hash_path[i];
                 }
 
