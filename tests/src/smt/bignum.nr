@@ -3,9 +3,13 @@ use bignum::fields::bn254Fq::BN254_Fq;
 use poseidon::poseidon2::Poseidon2::hash;
 use trees::sparse_merkle::{Modifier, NonMembershipProver, SMT_Creator, SparseMerkleTree};
 
+<<<<<<< HEAD
 type BN = BN254_Fq;
 
 fn hasher<let N: u32>(input: [BN; N]) -> BN {
+=======
+fn hasher<let N: u32>(input: [BN254_Fq; N]) -> BN254_Fq {
+>>>>>>> origin
     let mut limbs: [Field] = &[];
     for i in 0..N {
         limbs = limbs.append(input[i].get_limbs().map(|limb| limb as Field));
@@ -17,19 +21,28 @@ fn hasher<let N: u32>(input: [BN; N]) -> BN {
 
 #[test]
 fn test_sparse_merkle_tree_add_bignum() {
-    let mut smt: SparseMerkleTree<BN> = SparseMerkleTree::new(hasher, hasher);
+    let mut smt: SparseMerkleTree<BN254_Fq> = SparseMerkleTree::new(hasher, hasher);
 
+<<<<<<< HEAD
     let key = BN::from_limbs([0x01, 0x00, 0x00]);
     let value = BN::from_limbs([
+=======
+    let key = BN254_Fq::from_limbs([0x01, 0x00, 0x00]);
+    let value = BN254_Fq::from_limbs([
+>>>>>>> origin
         0x6b231cbc70b3c0d69bc398bd006eb5,
         0x412fba0629bcca2a2295b619e5c5c6,
         0x03fa,
     ]);
-    let siblings: [BN; 254] = [BN::zero(); 254];
+    let siblings: [BN254_Fq; 254] = [BN254_Fq::zero(); 254];
     smt.add((key, value), 0x01, siblings);
     assert(
         smt.root
+<<<<<<< HEAD
             == BN::from_limbs([
+=======
+            == BN254_Fq::from_limbs([
+>>>>>>> origin
                 0xd62299775a0f2bf81e430c4b922592,
                 0x422445e518efc86eab855bd6eb7f7f,
                 0x023c,
@@ -39,22 +52,36 @@ fn test_sparse_merkle_tree_add_bignum() {
 
 #[test]
 fn test_sparse_merkle_tree_add_really_bignum() {
+<<<<<<< HEAD
     let root: BN = BN::from_limbs([
+=======
+    let root: BN254_Fq = BN254_Fq::from_limbs([
+>>>>>>> origin
         0x1be857787743ed2a6e1243c3c4234c,
         0x282e99f6ba97ce4a5e6c6dcc1987b3,
         0x3ed4,
     ]);
     let mut smt = SparseMerkleTree::from(root, hasher, hasher);
 
+<<<<<<< HEAD
     let key: BN = BN::from_limbs([0x02, 0x00, 0x00]);
     let value: BN = BN::from_limbs([
+=======
+    let key: BN254_Fq = BN254_Fq::from_limbs([0x02, 0x00, 0x00]);
+    let value: BN254_Fq = BN254_Fq::from_limbs([
+>>>>>>> origin
         0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,
         0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,
         0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,
     ]);
 
+<<<<<<< HEAD
     let mut siblings: [BN; 254] = [BN::default(); 254];
     siblings[253] = BN::from_limbs([
+=======
+    let mut siblings: [BN254_Fq; 254] = [BN254_Fq::default(); 254];
+    siblings[253] = BN254_Fq::from_limbs([
+>>>>>>> origin
         0x1be857787743ed2a6e1243c3c4234c,
         0x282e99f6ba97ce4a5e6c6dcc1987b3,
         0x3ed4,
@@ -62,7 +89,11 @@ fn test_sparse_merkle_tree_add_really_bignum() {
     smt.add((key, value), 0x02, siblings);
     assert(
         smt.root
+<<<<<<< HEAD
             == BN::from_limbs([
+=======
+            == BN254_Fq::from_limbs([
+>>>>>>> origin
                 0xc6f622dabf46b66be9785ab95216ce,
                 0xd58446696eceac31a7af4e23d0269e,
                 0x0f39,
@@ -72,7 +103,11 @@ fn test_sparse_merkle_tree_add_really_bignum() {
 
 #[test]
 fn test_sparse_merkle_tree_non_membership_bignum() {
+<<<<<<< HEAD
     let root = BN::from_limbs([
+=======
+    let root = BN254_Fq::from_limbs([
+>>>>>>> origin
         0x05c0696110efae45316e89dd47f5f7,
         0xf8e0b03aa850c8eb7967c9c5aa02ae,
         0x24b0,
@@ -80,15 +115,25 @@ fn test_sparse_merkle_tree_non_membership_bignum() {
 
     let mut smt = SparseMerkleTree::from(root, hasher, hasher);
 
+<<<<<<< HEAD
     let mut siblings: [BN; 254] = [BN::zero(); 254];
     siblings[253] = BN::from_limbs([
+=======
+    let mut siblings: [BN254_Fq; 254] = [BN254_Fq::zero(); 254];
+    siblings[253] = BN254_Fq::from_limbs([
+>>>>>>> origin
         0x1be857787743ed2a6e1243c3c4234c,
         0x282e99f6ba97ce4a5e6c6dcc1987b3,
         0x3ed4,
     ]);
     let matching_entry = (
+<<<<<<< HEAD
         BN::from_limbs([0x02, 0x00, 0x00]),
         BN::from_limbs([
+=======
+        BN254_Fq::from_limbs([0x02, 0x00, 0x00]),
+        BN254_Fq::from_limbs([
+>>>>>>> origin
             0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,
             0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,
             0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,
