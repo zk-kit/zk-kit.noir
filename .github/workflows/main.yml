@@ -21,6 +21,7 @@ jobs:
         with:
           files: |
             packages/**/*.{nr,toml}
+            tests/**/*.{nr,toml}
             Nargo.toml
 
   style:
