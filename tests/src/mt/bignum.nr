@@ -19,7 +19,8 @@ fn test_merkle_tree_add_bignum() {
     let mut mt: MerkleTree<BN254_Fq> = MerkleTree::from(old_root, hasher);
 
     let leaf = BN254_Fq::from_limbs([0x2bc00d90b885b09d12764e764410f7f6, 0x00, 0x00]);
-    let paths: [BN254_Fq; 1] = [BN254_Fq::from_limbs([0x21447efbbddb57d6fc5ad24d90638849, 0x00, 0x00])];
+    let paths: [BN254_Fq; 1] =
+        [BN254_Fq::from_limbs([0x21447efbbddb57d6fc5ad24d90638849, 0x00, 0x00])];
 
     mt.add(leaf, 0x01, paths);
 }
@@ -35,7 +36,15 @@ fn test_merkle_tree_add_really_bignum() {
         0x30644e72e131a029b85045b68181585,
     ]);
 
-    let paths: [BN254_Fq; 1] = [BN254_Fq::from_limbs([0x2494b80a540ec0a0124a9dba7d5922e, 0x00, 0x00])];
+    let paths: [BN254_Fq; 1] =
+        [BN254_Fq::from_limbs([0x2494b80a540ec0a0124a9dba7d5922e, 0x00, 0x00])];
     mt.add(leaf, 0x01, paths);
-    assert(mt.root == BN254_Fq::from_limbs([740387881524827834158472907384095067, 1030682176101042812431910616255430037, 4050]));
+    assert(
+        mt.root
+            == BN254_Fq::from_limbs([
+                740387881524827834158472907384095067,
+                1030682176101042812431910616255430037,
+                4050,
+            ]),
+    );
 }
