@@ -150,16 +150,16 @@ impl<let H: u32, let W: u32, let W_BITS: u32> LazyTower<H, W, W_BITS> {
         for _ in 0..(32 / W_BITS) {
             let is_nonzero = (level_lengths != 0) as u32;
             h += is_nonzero;
-            level_lengths >>= W_BITS as u8;
+            level_lengths >>= W_BITS;
         }
 
         h
     }
 
     /// Extract W_BITS-wide level length at index lv.
-    fn compute_single_level_length(level_lengths: u32, lv: u8) -> u32 {
-        let mask = (1 << W_BITS as u8) - 1;
-        level_lengths >> (lv * W_BITS as u8) & mask
+    fn compute_single_level_length(level_lengths: u32, lv: u32) -> u32 {
+        let mask = (1 << W_BITS) - 1;
+        level_lengths >> (lv * W_BITS) & mask
     }
 
     // The code relies on the following statement:
@@ -178,8 +178,7 @@ impl<let H: u32, let W: u32, let W_BITS: u32> LazyTower<H, W, W_BITS> {
         let data_height = Self::compute_data_height(level_lengths);
 
         for lv in 0..H {
-            let lv_u8 = lv as u8;
-            level_length_array[lv] = Self::compute_single_level_length(level_lengths, lv_u8);
+            level_length_array[lv] = Self::compute_single_level_length(level_lengths, lv);
         }
 
         let ones: [u32; H] = Self::leading_ones(data_height);
