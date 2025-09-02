@@ -55,7 +55,7 @@ pub trait MembershipProver<T, K> {
 
 pub trait NonMembershipProver<T, K> {
     /**
-     * Verifies a non-membership proof, ie it calculates the tree root
+     * Verifies a non-membership proof, i.e. it calculates the tree root
      * based on an entry and a matching_entry and all siblings and compares that calculated root
      * with the root that is passed to this function.
      * @param entry Contains key and value of an entry: (key, value)
@@ -69,7 +69,7 @@ pub trait Modifier<T, K> {
     /**
      * Proves the addition of a NEW entry to an existing tree. Based on the siblings first validates the correctness of
      * the old root. Then uses the new entry and the siblings to calculate the new tree root.
-     * NOTE: this function doesn't validate if the key for the new entry already exists in the tree, ie
+     * NOTE: this function doesn't validate if the key for the new entry already exists in the tree, i.e.
      * if the operation is actually an update. For this operation there is a separate function.
      * @param new_entry The new entry to prove addition
      * @param siblings The siblings (and indices for MT proofs)
