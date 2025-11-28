@@ -1,4 +1,6 @@
 pub mod bjj;
+pub use bjj::BJJ;
+
 pub use ec::tecurve::affine::Point;
 
 pub trait ECDHTrait {
