@@ -1,5 +1,6 @@
 pub mod bjj;
-pub use ec::tecurve::affine::Point;
+pub use edwards::bjj::BabyJubJub as Point;
+pub use edwards::CurveTrait;
 
 pub trait ECDHTrait {
     fn new(private_key: Field) -> Self;

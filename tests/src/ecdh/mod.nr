@@ -1,4 +1,4 @@
-use ecdh::{bjj::BJJ, ECDHTrait, Point};
+use ecdh::{bjj::BJJ, CurveTrait, ECDHTrait, Point};
 
 global alice_sk: Field = 0x60c0102756aac2cf5d7277792a469bff83dfe3d3e7e50ad5a55383f3a89283e;
 global bob_sk: Field = 0x86cdaad8886954a2eb20142fb98468d476a2d6c7b2c571af42cdc041b1a923c;
