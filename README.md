@@ -112,8 +112,32 @@ bun run test
 1. Create a new git tag:
 
 ```bash
-bun version:tag <package-name> <version>
-# e.g. bun version:tag merkle-trees 0.0.1
+bun run version:tag <package-name> <version> [commit] [options]
+# e.g. bun run version:tag merkle-trees 0.0.1
+```
+
+**Arguments:**
+
+- `commit` - (optional) Commit SHA or ref to tag (default: HEAD)
+
+**Options:**
+
+- `--commit, -c <ref>` - Tag a specific commit (alternative to positional)
+- `--force, -f` - Overwrite an existing tag
+- `--help, -h` - Show help
+
+**Examples:**
+
+```bash
+# Tag HEAD (default)
+bun run version:tag merkle-trees 1.0.0
+
+# Tag a specific commit (useful for multi-package releases)
+bun run version:tag merkle-trees 1.0.0 abc123
+bun run version:tag ecdh 2.0.0 abc123
+
+# Overwrite an existing tag
+bun run version:tag merkle-trees 1.0.0 --force
 ```
 
 2. Push the new git tag:
