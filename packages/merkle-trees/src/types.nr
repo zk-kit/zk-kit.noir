@@ -62,7 +62,13 @@ pub trait NonMembershipProver<T, K> {
      * @param matching_entry Contains (key, value) of a matching entry
      * @param siblings Contains array of siblings the matching_entry
      */
-    fn non_membership<let N: u32>(self, matching_entry: K, index: Field, siblings: [T; N]);
+    fn non_membership<let N: u32>(
+        self,
+        matching_entry: K,
+        queried_key: T,
+        index: Field,
+        siblings: [T; N],
+    );
 }
 
 pub trait Modifier<T, K> {

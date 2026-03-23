@@ -30,7 +30,7 @@ fn test_verify_non_membership_proof() {
     let mut siblings: [Field; 254] = [0; 254];
     siblings[253] = 0x1891383341c9ba47346ab2cf7dfcf6ba42491d17f3fa692a5c1029732029aa53;
 
-    smt.non_membership(matching_entry, entry.0, siblings);
+    smt.non_membership(matching_entry, entry.0, entry.0, siblings);
 }
 
 #[test]
@@ -112,4 +112,22 @@ fn test_update() {
 
     smt.update(new_entry, old_entry, old_entry.0, siblings);
     assert(smt.root == big_tree_root);
+}
+
+#[test(should_fail)]
+fn test_false_non_membership_proof_fails() {
+    let root = 0x7ca084dd359e77ce4a7a683ccd717c45ecee547a73e73fd1a1cb62ec2a30961;
+    let smt = SparseMerkleTree::from(root, pedersen_hash, pedersen_hash);
+
+    let key = 0x03;
+    let entry = (key, 0x03);
+
+    let mut siblings: [Field; 254] = [0; 254];
+    siblings[252] = 0xe51bb5b5db9cc2c7dfd9c38ed5db39f784973f7235da39923a78793b28fe13a;
+    siblings[253] = 0x206456a6a1f0ee74ce95061dfbbc35ddc4ac3644988b324b5fe50e77215f1702;
+
+    // This entry IS in the tree (membership succeeds)
+    smt.membership(entry, key, siblings);
+    // Non-membership with the same key must fail
+    smt.non_membership(entry, key, key, siblings);
 }
