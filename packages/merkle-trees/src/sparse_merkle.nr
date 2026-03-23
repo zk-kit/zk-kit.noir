@@ -38,8 +38,17 @@ impl<T> NonMembershipProver<T, (T, T)> for SparseMerkleTree<T>
 where
     T: Eq + Default,
 {
-    fn non_membership<let N: u32>(self, matching_entry: (T, T), index: Field, siblings: [T; N]) {
+    fn non_membership<let N: u32>(
+        self,
+        matching_entry: (T, T),
+        queried_key: T,
+        index: Field,
+        siblings: [T; N],
+    ) {
         if (self.root != T::default()) {
+            // Ensure the matching entry's key is different from the queried key
+            assert(matching_entry.0 != queried_key);
+
             // non-membership proof: the root is calculated based on the matching_entry, the siblings
             // and the path that is determined by the key of entry. This makes sure that matching_entry is in fact
             // a matching entry for entry meaning that it shares the same first bits as path

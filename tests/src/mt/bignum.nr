@@ -4,7 +4,7 @@ use poseidon::poseidon2::Poseidon2::hash;
 use trees::merkle::{MerkleTree, Modifier, MT_Creator};
 
 fn hasher<let N: u32>(input: [BN254_Fq; N]) -> BN254_Fq {
-    let mut limbs: [Field] = &[];
+    let mut limbs: [Field] = @[];
     for i in 0..N {
         limbs = limbs.append(input[i].get_limbs().map(|limb| limb as Field));
     }
