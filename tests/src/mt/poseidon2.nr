@@ -57,3 +57,12 @@ fn test_merkle_tree_update() {
             ),
     );
 }
+
+#[test(should_fail)]
+fn test_merkle_tree_add_rejects_copath_of_repeated_roots() {
+    let old_root = 0x21447efbbddb57d6fc5ad24d906388492e82c44e5160425258dd4ea995e3a06e;
+    let mut mt = MerkleTree::from(old_root, |h| hash(h, 2));
+    // passing the old root as every sibling used to satisfy the old-root assert
+    // without proving a co-path
+    mt.add(0x99, 0x00, [old_root, old_root]);
+}
