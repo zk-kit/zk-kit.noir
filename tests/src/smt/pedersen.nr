@@ -1,6 +1,6 @@
 use std::hash::pedersen_hash;
 use trees::sparse_merkle::{
-    MembershipProver, Modifier, NonMembershipProver, SMT_Creator, SparseMerkleTree,
+    Calculator, MembershipProver, Modifier, NonMembershipProver, SMT_Creator, SparseMerkleTree,
 };
 
 #[test]
@@ -130,4 +130,19 @@ fn test_false_non_membership_proof_fails() {
     smt.membership(entry, key, siblings);
     // Non-membership with the same key must fail
     smt.non_membership(entry, key, key, siblings);
+}
+
+#[test]
+fn test_sparse_merkle_tree_two_roots_folds_every_sibling() {
+    let root = 0x7ca084dd359e77ce4a7a683ccd717c45ecee547a73e73fd1a1cb62ec2a30961;
+    let smt = SparseMerkleTree::from(root, pedersen_hash, pedersen_hash);
+
+    // a node at level 100 that no honest path would contain, plus the real root on top
+    let mut path: [Field; 254] = [0; 254];
+    path[100] = pedersen_hash([0x200000000000000000000000000000000000000, 999999, 0]);
+    path[253] = root;
+
+    // every nonzero sibling is folded, so a spurious node cannot leave the old root intact
+    let (without_leaf, _with_leaf) = smt.calculate_two_roots((0, 10), 0, path);
+    assert(without_leaf != root);
 }
