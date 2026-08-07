@@ -178,6 +178,8 @@ where
         // root_without_leaf is a container for hashes to derive the root node for the tree that
         // doesn't include the entry
         let mut root_without_leaf = T::default();
+        // whether the first nonzero sibling has been seeded into root_without_leaf
+        let mut found_first = false;
         // iterate over the levels of the tree from bottom to top
         for i in 0..hash_path.len() {
             let sibling = hash_path[i];
@@ -187,21 +189,21 @@ where
             // and starting from each SUBSEQUENT iteration it is hashed with its sibling and the resulting hash
             // again stored in the container until the root is reached
             if sibling != T::default() {
-                if (i > 0) & (hash_path[i - 1] == T::default()) {
-                    root_without_leaf = hash_path[i];
-                }
-
                 if index_bits[i] != 0 {
                     root_with_leaf = (self.hasher)([sibling, root_with_leaf]);
-                    if (root_without_leaf != sibling) {
+                    if found_first {
                         root_without_leaf = (self.hasher)([sibling, root_without_leaf]);
                     }
                 } else {
                     root_with_leaf = (self.hasher)([root_with_leaf, sibling]);
-
-                    if (root_without_leaf != sibling) {
+                    if found_first {
                         root_without_leaf = (self.hasher)([root_without_leaf, sibling]);
                     }
+                }
+
+                if !found_first {
+                    root_without_leaf = sibling;
+                    found_first = true;
                 }
             }
         }
