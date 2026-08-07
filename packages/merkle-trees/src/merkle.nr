@@ -112,9 +112,6 @@ where
 
         // iterate over the levels of the tree from bottom to top
         for i in 0..hash_path.len() {
-            if i == 0 {
-                root_without_leaf = hash_path[i];
-            }
             let sibling = hash_path[i];
             // After the first sibling is found, the processes are started to calculate the two root nodes.
             // The calulcation of the root node that includes the entry is comparable to `calculate_root`.
@@ -123,14 +120,18 @@ where
             // again stored in the container until the root is reached
             if index_bits[i] == 0 {
                 root_with_leaf = (self.hasher)([root_with_leaf, sibling]);
-                if (root_without_leaf != sibling) {
+                if i != 0 {
                     root_without_leaf = (self.hasher)([root_without_leaf, sibling]);
                 }
             } else {
                 root_with_leaf = (self.hasher)([sibling, root_with_leaf]);
-                if (root_without_leaf != sibling) {
+                if i != 0 {
                     root_without_leaf = (self.hasher)([sibling, root_without_leaf]);
                 }
+            }
+
+            if i == 0 {
+                root_without_leaf = sibling;
             }
         }
         (root_without_leaf, root_with_leaf)
