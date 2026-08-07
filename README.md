@@ -13,11 +13,11 @@
     <a href="https://github.com/privacy-scaling-explorations" target="_blank">
         <img src="https://img.shields.io/badge/project-PSE-blue.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit.noir/blob/main/LICENSE">
-        <img alt="Github license" src="https://img.shields.io/github/license/privacy-scaling-explorations/zk-kit.noir.svg?style=flat-square">
+    <a href="https://github.com/zk-kit/zk-kit.noir/blob/main/LICENSE">
+        <img alt="Github license" src="https://img.shields.io/github/license/zk-kit/zk-kit.noir.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit.noir/actions?query=workflow%3Amain">
-        <img alt="GitHub Workflow test" src="https://img.shields.io/github/actions/workflow/status/privacy-scaling-explorations/zk-kit.noir/main.yml?branch=main&label=test&style=flat-square&logo=github">
+    <a href="https://github.com/zk-kit/zk-kit.noir/actions?query=workflow%3Amain">
+        <img alt="GitHub Workflow test" src="https://img.shields.io/github/actions/workflow/status/zk-kit/zk-kit.noir/main.yml?branch=main&label=test&style=flat-square&logo=github">
     </a>
     <a href="https://prettier.io/">
         <img alt="Code style prettier" src="https://img.shields.io/badge/code%20style-prettier-f8bc45?style=flat-square&logo=prettier">
@@ -37,7 +37,7 @@
             🤝 Code of conduct
         </a>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-        <a href="https://github.com/privacy-scaling-explorations/zk-kit.noir/issues/new/choose">
+        <a href="https://github.com/zk-kit/zk-kit.noir/issues/new/choose">
             🔎 Issues
         </a>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
@@ -51,36 +51,103 @@
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 > [!IMPORTANT]\
-> Installation of [Nargo](https://noir-lang.org/docs/getting_started/noir_installation) required for circuit tests.
+> Installation of [Nargo](https://noir-lang.org/docs/installation) required for circuit tests.
 
 ## 🗂️ Repositories
 
-- Javascript: <https://github.com/privacy-scaling-explorations/zk-kit>
-- Solidity: <https://github.com/privacy-scaling-explorations/zk-kit.solidity>
-- Circom: <https://github.com/privacy-scaling-explorations/zk-kit.circom>
-- Noir: <https://github.com/privacy-scaling-explorations/zk-kit.noir>
+- Circom: [zk-kit/zk-kit.circom](https://github.com/zk-kit/zk-kit.circom)
+- Javascript: [zk-kit/zk-kit](https://github.com/zk-kit/zk-kit)
+- Noir: [zk-kit/zk-kit.noir](https://github.com/zk-kit/zk-kit.noir)
+- Rust: [zk-kit/zk-kit.rust](https://github.com/zk-kit/zk-kit.rust)
+- Solidity: [zk-kit/zk-kit.solidity](https://github.com/zk-kit/zk-kit.solidity)
+- Cairo: [zk-kit/zk-kit.cairo](https://github.com/zk-kit/zk-kit.cairo)
 
 ## 📦 Packages
 
-- [merkle-trees](https://github.com/privacy-scaling-explorations/zk-kit.noir/tree/main/packages/merkle-trees)
-- [ecdh](https://github.com/privacy-scaling-explorations/zk-kit.noir/tree/main/packages/ecdh)
-- [binary-merkle-root](https://github.com/privacy-scaling-explorations/zk-kit.noir/tree/main/packages/binary-merkle-root)
+<table>
+    <th>Package</th>
+    <th>Version</th>
+    <th>Audited</th>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://github.com/zk-kit/zk-kit.noir/tree/main/packages/merkle-trees">
+                    merkle-trees
+                </a>
+            </td>
+            <td>
+                <!-- Version -->
+                <a href="https://github.com/zk-kit/zk-kit.noir/releases?q=merkle-trees&expanded=true">
+                    <img src="https://img.shields.io/github/v/tag/zk-kit/zk-kit.noir?filter=merkle-trees-*&label=version&style=flat-square" alt="Version" />
+                </a>
+            </td>
+            <td>
+                ❌
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/zk-kit/zk-kit.noir/tree/main/packages/ecdh">
+                    ecdh
+                </a>
+            </td>
+            <td>
+                <!-- Version -->
+                <a href="https://github.com/zk-kit/zk-kit.noir/releases?q=ecdh&expanded=true">
+                    <img src="https://img.shields.io/github/v/tag/zk-kit/zk-kit.noir?filter=ecdh-*&label=version&style=flat-square" alt="Version" />
+                </a>
+            </td>
+            <td>
+                ❌
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/zk-kit/zk-kit.noir/tree/main/packages/binary-merkle-root">
+                    binary-merkle-root
+                </a>
+            </td>
+            <td>
+                <!-- Version -->
+                <a href="https://github.com/zk-kit/zk-kit.noir/releases?q=binary-merkle-root&expanded=true">
+                    <img src="https://img.shields.io/github/v/tag/zk-kit/zk-kit.noir?filter=binary-merkle-root-*&label=version&style=flat-square" alt="Version" />
+                </a>
+            </td>
+            <td>
+                ❌
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/zk-kit/zk-kit.noir/tree/main/packages/lazytower">
+                    lazytower
+                </a>
+            </td>
+            <td>
+                <!-- Version -->
+                <a href="https://github.com/zk-kit/zk-kit.noir/releases?q=lazytower&expanded=true">
+                    <img src="https://img.shields.io/github/v/tag/zk-kit/zk-kit.noir?filter=lazytower-*&label=version&style=flat-square" alt="Version" />
+                </a>
+            </td>
+            <td>
+                ❌
+            </td>
+        </tr>
+    <tbody>
+</table>
 
 ## 👥 Ways to contribute
 
-- 🔧 Work on [open issues](https://github.com/privacy-scaling-explorations/zk-kit.noir/contribute)
-- 📦 Suggest new [circuits](https://github.com/privacy-scaling-explorations/zk-kit.noir/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---circuit.md&title=)
-- 🐛 Create a report if you find any [bugs](https://github.com/privacy-scaling-explorations/zk-kit.noir/issues/new?assignees=&labels=bug+%F0%9F%90%9B&template=---bug.md&title=) in the code
-
-> [!NOTE]\
-> Need inspiration? Check this list of circuits from the Aztec team: <https://aztecnetwork.notion.site/f06968995c124de1be359459775ca2cb?v=613d3cb893dd46899a5bd3793b01e63b>.
+- 🔧 Work on [open issues](https://github.com/zk-kit/zk-kit.noir/contribute)
+- 📦 Suggest new [circuits](https://github.com/zk-kit/zk-kit.noir/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---circuit.md&title=)
+- 🐛 Create a report if you find any [bugs](https://github.com/zk-kit/zk-kit.noir/issues/new?assignees=&labels=bug+%F0%9F%90%9B&template=---bug.md&title=) in the code
 
 ## 🛠 Install
 
 Clone this repository:
 
 ```bash
-git clone https://github.com/privacy-scaling-explorations/zk-kit.noir.git
+git clone https://github.com/zk-kit/zk-kit.noir.git
 ```
 
 and install the dependencies:
@@ -109,18 +176,20 @@ bun run test
 
 ### Releases
 
-1. Create a new git tag:
+1. Update the package README install version and create a new git tag:
 
 ```bash
 bun version:tag <package-name> <version>
 # e.g. bun version:tag merkle-trees 0.0.1
 ```
 
-2. Push the new git tag:
+This bumps the `tag = "<package-name>-v<version>"` line in `packages/<package-name>/README.md`, commits that change, and tags the commit. The tagged commit therefore always documents the version being released.
+
+2. Push the commit and the new git tag:
 
 ```bash
-git push origin <package-name>-<version>
-# e.g. git push origin merkle-trees-v0.0.1
+git push && git push origin <package-name>-v<version>
+# e.g. git push && git push origin merkle-trees-v0.0.1
 ```
 
 After pushing the new git tag, a workflow will be triggered and will release a new version on Github with its changelog automatically.

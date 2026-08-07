@@ -14,7 +14,7 @@ At the moment only Baby JubJub is supported, feel free to contribute with more c
 To use this library, add the dependency to your `Nargo.toml`:
 
 ```toml
-ecdh = { git = "https://github.com/privacy-scaling-explorations/zk-kit.noir", tag = "ecdh-v0.0.1", directory = "packages/ecdh" }
+ecdh = { git = "https://github.com/zk-kit/zk-kit.noir", tag = "ecdh-v0.0.1", directory = "packages/ecdh" }
 ```
 
 You can then import the ECDH implementation for the curve you're working with, like so:
