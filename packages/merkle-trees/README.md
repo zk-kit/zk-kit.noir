@@ -14,7 +14,7 @@ To use these trees in your project, add the lib to its `Nargo.toml` file. For ex
 
 ```toml
 [dependencies]
-trees = { git = "https://github.com/zk-kit/zk-kit.noir", tag = "merkle-trees-v0.0.1", directory = "packages/merkle-trees" }
+trees = { git = "https://github.com/zk-kit/zk-kit.noir", tag = "merkle-trees-v0.0.3", directory = "packages/merkle-trees" }
 poseidon = { git = "https://github.com/noir-lang/poseidon", tag = "v0.3.0" }
 ```
 
