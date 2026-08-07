@@ -28,7 +28,8 @@ try {
   writeFileSync(readmePath, updated)
 
   execSync(`git add ${readmePath}`, { stdio: 'inherit' })
-  execSync(`git commit -m "docs(${packageName}): update install version to ${version}"`, { stdio: 'inherit' })
+  // NO_HOOK=1 skips the interactive `czg` prepare-commit-msg hook.
+  execSync(`NO_HOOK=1 git commit -m "docs(${packageName}): update install version to ${version}"`)
   execSync(`git tag ${tag}`, { stdio: 'inherit' })
 
   console.log(`✅ Updated ${readmePath} and created git tag: ${tag}`)
