@@ -1,6 +1,6 @@
 use bignum::BigNum;
 use bignum::fields::bn254Fq::BN254_Fq;
-use poseidon::poseidon2::Poseidon2::hash;
+use poseidon::poseidon2::Poseidon2;
 use trees::sparse_merkle::{Modifier, NonMembershipProver, SMT_Creator, SparseMerkleTree};
 
 fn hasher<let N: u32>(input: [BN254_Fq; N]) -> BN254_Fq {
@@ -9,7 +9,7 @@ fn hasher<let N: u32>(input: [BN254_Fq; N]) -> BN254_Fq {
         limbs = limbs.append(input[i].get_limbs().map(|limb| limb as Field));
     }
     let limbs_arr: [Field; 3 * N] = limbs.as_array();
-    let hash_field: [u8; 32] = hash(limbs_arr, 3 * N).to_be_bytes();
+    let hash_field: [u8; 32] = Poseidon2::hash(limbs_arr, 3 * N).to_be_bytes();
     BN254_Fq::from_be_bytes(hash_field)
 }
 
@@ -76,7 +76,7 @@ fn test_sparse_merkle_tree_non_membership_bignum() {
         0x24b0,
     ]);
 
-    let mut smt = SparseMerkleTree::from(root, hasher, hasher);
+    let smt = SparseMerkleTree::from(root, hasher, hasher);
 
     let mut siblings: [BN254_Fq; 254] = [BN254_Fq::zero(); 254];
     siblings[253] = BN254_Fq::from_limbs([
@@ -99,7 +99,7 @@ fn test_sparse_merkle_tree_non_membership_bignum() {
 // #[test]
 // fn test_verify_non_membership_proof() {
 //     let root = 0x2151c2f9fdef58b8a33921d853d54895d2d9c7446bc5c9cdbe71e344a5cea1ed;
-//     let smt = SparseMerkleTree::from(root, |h| hash(h, 3), |h| hash(h, 2));
+//     let smt = SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
 
 //     let key = 0x04;
 //     let value = 0x04;

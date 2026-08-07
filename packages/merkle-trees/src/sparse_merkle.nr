@@ -52,7 +52,7 @@ where
             // non-membership proof: the root is calculated based on the matching_entry, the siblings
             // and the path that is determined by the key of entry. This makes sure that matching_entry is in fact
             // a matching entry for entry meaning that it shares the same first bits as path
-            let mut calculated_root = self.calculate_root(matching_entry, index, siblings);
+            let calculated_root = self.calculate_root(matching_entry, index, siblings);
             assert(calculated_root == self.root);
         }
     }
@@ -93,7 +93,7 @@ where
     ) {
         let key = index;
         // both the old entry and new entry share the same key that is used to calculate the path
-        let path: [u1; N] = key.to_be_bits();
+        let path: [bool; N] = key.to_be_bits();
 
         // old_parent is a container to temporarily store the nodes that ultimately lead to the OLD root
         let mut old_parent = (self.leaf_hasher)([old_value.0, old_value.1, T::default()]);
@@ -105,7 +105,7 @@ where
         for i in 0..hash_path.len() {
             let sibling = hash_path[i];
             if sibling != T::default() {
-                if path[i] != 0 {
+                if path[i] {
                     new_parent = (self.hasher)([sibling, new_parent]);
                     old_parent = (self.hasher)([sibling, old_parent]);
                 } else {
@@ -131,7 +131,7 @@ where
      * @returns The calculated root node
      */
     fn calculate_root<let N: u32>(self, entry: (T, T), indexes: Field, hash_path: [T; N]) -> T {
-        let index_bits: [u1; N] = indexes.to_be_bits(); // TODO: does to_be_bits range check the output array?
+        let index_bits: [bool; N] = indexes.to_be_bits(); // TODO: does to_be_bits range check the output array?
 
         // serves as container for hashes and is initialized to be the leaf node
         let mut node = (self.leaf_hasher)([entry.0, entry.1, T::default()]);
@@ -145,7 +145,7 @@ where
             if sibling != T::default() {
                 let mut left = sibling;
                 let mut right = node;
-                if index_bits[i] == 0 {
+                if !index_bits[i] {
                     left = node;
                     right = sibling;
                 }
@@ -170,7 +170,7 @@ where
         indexes: Field,
         hash_path: [T; N],
     ) -> (T, T) {
-        let index_bits: [u1; N] = indexes.to_be_bits();
+        let index_bits: [bool; N] = indexes.to_be_bits();
 
         // root_with_leaf is a container for hashes to derive the root node for the tree that
         // includes the entry
@@ -189,7 +189,7 @@ where
             // and starting from each SUBSEQUENT iteration it is hashed with its sibling and the resulting hash
             // again stored in the container until the root is reached
             if sibling != T::default() {
-                if index_bits[i] != 0 {
+                if index_bits[i] {
                     root_with_leaf = (self.hasher)([sibling, root_with_leaf]);
                     if found_first {
                         root_without_leaf = (self.hasher)([sibling, root_without_leaf]);

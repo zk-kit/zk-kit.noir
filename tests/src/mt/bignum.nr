@@ -1,6 +1,6 @@
 use bignum::BigNum;
 use bignum::fields::bn254Fq::BN254_Fq;
-use poseidon::poseidon2::Poseidon2::hash;
+use poseidon::poseidon2::Poseidon2;
 use trees::merkle::{MerkleTree, Modifier, MT_Creator};
 
 fn hasher<let N: u32>(input: [BN254_Fq; N]) -> BN254_Fq {
@@ -9,7 +9,7 @@ fn hasher<let N: u32>(input: [BN254_Fq; N]) -> BN254_Fq {
         limbs = limbs.append(input[i].get_limbs().map(|limb| limb as Field));
     }
     let limbs_arr: [Field; 3 * N] = limbs.as_array();
-    let hash_field: [u8; 32] = hash(limbs_arr, 3 * N).to_be_bytes();
+    let hash_field: [u8; 32] = Poseidon2::hash(limbs_arr, 3 * N).to_be_bytes();
     BN254_Fq::from_be_bytes(hash_field)
 }
 

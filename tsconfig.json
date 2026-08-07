@@ -8,11 +8,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true, // Add this line
-    "types": ["mocha", "node"]
+    "types": ["node"]
   },
   "include": [
-    "./src/**/*.ts",
-    "./tests/**/*.ts",
     "./scripts/**/*.ts"
   ],
   "exclude": [

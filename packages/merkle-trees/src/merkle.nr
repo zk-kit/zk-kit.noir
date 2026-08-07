@@ -49,14 +49,14 @@ where
     }
 
     fn update<let N: u32>(&mut self, leaf: T, old_leaf: T, indexes: Field, hash_path: [T; N]) {
-        let index_bits: [u1; N] = indexes.to_le_bits();
+        let index_bits: [bool; N] = indexes.to_le_bits();
 
         let mut old_parent = old_leaf;
         let mut new_parent = leaf;
 
         for i in 0..hash_path.len() {
             let sibling = hash_path[i];
-            if index_bits[i] == 0 {
+            if !index_bits[i] {
                 new_parent = (self.hasher)([new_parent, sibling]);
                 old_parent = (self.hasher)([old_parent, sibling]);
             } else {
@@ -74,11 +74,11 @@ where
     T: Eq + Default,
 {
     fn calculate_root<let N: u32>(self, leaf: T, indexes: Field, hash_path: [T; N]) -> T {
-        let index_bits: [u1; N] = indexes.to_le_bits();
+        let index_bits: [bool; N] = indexes.to_le_bits();
         let mut node = leaf;
         for i in 0..hash_path.len() {
             let sibling = hash_path[i];
-            if index_bits[i] == 0 {
+            if !index_bits[i] {
                 let left = node;
                 let right = sibling;
                 node = (self.hasher)([left, right]);
@@ -101,7 +101,7 @@ where
      * @returns Two root nodes: the first one doesn't include entry, the second does
      */
     fn calculate_two_roots<let N: u32>(self, leaf: T, indexes: Field, hash_path: [T; N]) -> (T, T) {
-        let index_bits: [u1; N] = indexes.to_le_bits();
+        let index_bits: [bool; N] = indexes.to_le_bits();
 
         // root_with_leaf is a container for hashes to derive the root node for the tree that
         // includes the entry
@@ -118,7 +118,7 @@ where
             // To calc the root node that doesn't include entry, the first sibling is put into the container
             // and starting from each SUBSEQUENT iteration it is hashed with its sibling and the resulting hash
             // again stored in the container until the root is reached
-            if index_bits[i] == 0 {
+            if !index_bits[i] {
                 root_with_leaf = (self.hasher)([root_with_leaf, sibling]);
                 if i != 0 {
                     root_without_leaf = (self.hasher)([root_without_leaf, sibling]);

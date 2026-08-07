@@ -182,7 +182,7 @@ impl<let H: u32, let W: u32, let W_BITS: u32> LazyTower<H, W, W_BITS> {
         }
 
         let ones: [u32; H] = Self::leading_ones(data_height);
-        let mut dummy = [[0; W_BITS]; H];
+        let mut dummy = [[false; W_BITS]; H];
         let mut s = 0;
 
         for lv in 0..H {

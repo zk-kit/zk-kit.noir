@@ -11,7 +11,7 @@ pub fn binary_merkle_root<let MAX_DEPTH: u32>(
     hasher: fn([Field; 2]) -> Field,
     leaf: Field,
     depth: u32,
-    indices: [u1; MAX_DEPTH],
+    indices: [bool; MAX_DEPTH],
     siblings: [Field; MAX_DEPTH],
 ) -> Field {
     // Start from the leaf node
@@ -24,8 +24,8 @@ pub fn binary_merkle_root<let MAX_DEPTH: u32>(
             let sibling = siblings[i];
 
             // Determine the ordering of node and sibling based on the index bit
-            // If indices[i] == 0, node is on the left; otherwise, it's on the right
-            let (left, right) = if indices[i] == 0 {
+            // If indices[i] is false, node is on the left; otherwise, it's on the right
+            let (left, right) = if !indices[i] {
                 (node, sibling)
             } else {
                 (sibling, node)
