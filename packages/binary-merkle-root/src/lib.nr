@@ -17,6 +17,9 @@ pub fn binary_merkle_root<let MAX_DEPTH: u32>(
     // Start from the leaf node
     let mut node = leaf;
 
+    // Validate that the provided depth does not exceed the static MAX_DEPTH
+    assert(depth <= MAX_DEPTH);
+
     // Iterate through the Merkle proof up to MAX_DEPTH
     for i in 0..MAX_DEPTH {
         // Only compute hash if the current level is within the tree depth
