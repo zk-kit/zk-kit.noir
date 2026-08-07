@@ -51,7 +51,7 @@
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 > [!IMPORTANT]\
-> Installation of [Nargo](https://noir-lang.org/docs/getting_started/noir_installation) required for circuit tests.
+> Installation of [Nargo](https://noir-lang.org/docs/installation) required for circuit tests.
 
 ## 🗂️ Repositories
 
@@ -142,9 +142,6 @@
 - 📦 Suggest new [circuits](https://github.com/zk-kit/zk-kit.noir/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---circuit.md&title=)
 - 🐛 Create a report if you find any [bugs](https://github.com/zk-kit/zk-kit.noir/issues/new?assignees=&labels=bug+%F0%9F%90%9B&template=---bug.md&title=) in the code
 
-> [!NOTE]\
-> Need inspiration? Check this list of circuits from the Aztec team: <https://aztecnetwork.notion.site/f06968995c124de1be359459775ca2cb?v=613d3cb893dd46899a5bd3793b01e63b>.
-
 ## 🛠 Install
 
 Clone this repository:
@@ -179,18 +176,20 @@ bun run test
 
 ### Releases
 
-1. Create a new git tag:
+1. Update the package README install version and create a new git tag:
 
 ```bash
 bun version:tag <package-name> <version>
 # e.g. bun version:tag merkle-trees 0.0.1
 ```
 
-2. Push the new git tag:
+This bumps the `tag = "<package-name>-v<version>"` line in `packages/<package-name>/README.md`, commits that change, and tags the commit. The tagged commit therefore always documents the version being released.
+
+2. Push the commit and the new git tag:
 
 ```bash
-git push origin <package-name>-<version>
-# e.g. git push origin merkle-trees-v0.0.1
+git push && git push origin <package-name>-v<version>
+# e.g. git push && git push origin merkle-trees-v0.0.1
 ```
 
 After pushing the new git tag, a workflow will be triggered and will release a new version on Github with its changelog automatically.

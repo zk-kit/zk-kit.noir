@@ -12,7 +12,7 @@ To use LazyTower in your project, add the library to your `Nargo.toml` file. For
 
 ```toml
 [dependencies]
-lazy_tower = { git = "https://github.com/zk-kit/zk-kit.noir", tag = "lazy-tower-v0.0.1", directory = "packages/lazy-tower" }
+lazytower = { git = "https://github.com/zk-kit/zk-kit.noir", tag = "lazytower-v0.0.1", directory = "packages/lazytower" }
 ```
 
 And import it in your file.
@@ -30,7 +30,7 @@ The `LazyTower` circuit is generic over three parameters:
 A LazyTower:
 
 ```rust
-use lazy_tower::tower::LazyTower;
+use lazytower::tower::LazyTower;
 
 // Define global parameters
 global H: u32 = 8;
