@@ -14,7 +14,7 @@ fn test_one_level() {
         1280033553760815678764770846139155613435155939625621669696967390845036381755;
     // One level, depth = 1
     let merkle_proof_length = 1;
-    let merkle_proof_indices = [1];
+    let merkle_proof_indices = [true];
     let merkle_proof_siblings = [1];
     let root = 6691153974608186212136798648834496237771156483253230205533658046584008158327;
     let root_result = binary_merkle_root(
@@ -39,7 +39,7 @@ fn test_odd_number_of_leaves() {
     let identity_commitment =
         1280033553760815678764770846139155613435155939625621669696967390845036381755;
     let merkle_proof_length = 1;
-    let merkle_proof_indices = [1];
+    let merkle_proof_indices = [true];
     let merkle_proof_siblings =
         [7853200120776062878684798364095072458815029376092732009249414926327459813530];
     let root = 15315337189723426960706634029226413344761453738246667319973793912339492411933;
@@ -66,7 +66,7 @@ fn test_depth_less_than_max_depth() {
         1280033553760815678764770846139155613435155939625621669696967390845036381755;
     // depth = 2 which is < max depth = 5
     let merkle_proof_length = 2;
-    let merkle_proof_indices = [0, 1, 0, 0, 0];
+    let merkle_proof_indices = [false, true, false, false, false];
     let merkle_proof_siblings =
         [3, 7853200120776062878684798364095072458815029376092732009249414926327459813530, 0, 0, 0];
     let root = 15284653082059996996538149234009626848177941683781918204717362906726802990849;
@@ -93,7 +93,7 @@ fn test_depth_equals_max_depth() {
         1280033553760815678764770846139155613435155939625621669696967390845036381755;
     // depth = 2 which is = max depth = 2
     let merkle_proof_length = 2;
-    let merkle_proof_indices = [1, 1];
+    let merkle_proof_indices = [true, true];
     let merkle_proof_siblings =
         [3, 7853200120776062878684798364095072458815029376092732009249414926327459813530];
     let root = 19646466727209028632368918362567300896600724196464472518263335051880792850046;
@@ -123,7 +123,7 @@ fn test_incorrect_hash_function() {
     let identity_commitment =
         1280033553760815678764770846139155613435155939625621669696967390845036381755;
     let merkle_proof_length = 2;
-    let merkle_proof_indices = [1, 1];
+    let merkle_proof_indices = [true, true];
     let merkle_proof_siblings =
         [3, 7853200120776062878684798364095072458815029376092732009249414926327459813530];
     let root = 19646466727209028632368918362567300896600724196464472518263335051880792850046;
@@ -150,7 +150,7 @@ fn test_incorrect_commitment_value() {
     // This test is expected to fail because the identity_commitment value is incorrect, this was not the one used to generate the root expected.
     let identity_commitment = 4;
     let merkle_proof_length = 2;
-    let merkle_proof_indices = [1, 1];
+    let merkle_proof_indices = [true, true];
     let merkle_proof_siblings =
         [3, 7853200120776062878684798364095072458815029376092732009249414926327459813530];
     let root = 19646466727209028632368918362567300896600724196464472518263335051880792850046;
@@ -177,7 +177,7 @@ fn test_incorrect_depth_value() {
         1280033553760815678764770846139155613435155939625621669696967390845036381755;
     // This test is expected to fail because the depth value is incorrect, it should be 2.
     let merkle_proof_length = 1;
-    let merkle_proof_indices = [1, 1];
+    let merkle_proof_indices = [true, true];
     let merkle_proof_siblings =
         [3, 7853200120776062878684798364095072458815029376092732009249414926327459813530];
     let root = 19646466727209028632368918362567300896600724196464472518263335051880792850046;
@@ -204,7 +204,7 @@ fn test_incorrect_proof_indices_values() {
         1280033553760815678764770846139155613435155939625621669696967390845036381755;
     let merkle_proof_length = 2;
     // This test is expected to fail because the proof indices values are incorrect.
-    let merkle_proof_indices = [0, 0];
+    let merkle_proof_indices = [false, false];
     let merkle_proof_siblings =
         [3, 7853200120776062878684798364095072458815029376092732009249414926327459813530];
     let root = 19646466727209028632368918362567300896600724196464472518263335051880792850046;
@@ -230,7 +230,7 @@ fn test_incorrect_siblings_values() {
     let identity_commitment =
         1280033553760815678764770846139155613435155939625621669696967390845036381755;
     let merkle_proof_length = 2;
-    let merkle_proof_indices = [1, 1];
+    let merkle_proof_indices = [true, true];
     // This test is expected to fail because the proof siblings values are incorrect, these were not the ones used to generate the root expected.
     let merkle_proof_siblings = [3, 4];
     let root = 19646466727209028632368918362567300896600724196464472518263335051880792850046;

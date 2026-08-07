@@ -4,9 +4,9 @@ type = "lib"
 authors = ["signorecello", "vplasencia"]
 
 [dependencies]
-bignum = { git = "https://github.com/noir-lang/noir-bignum", tag = "v0.9.2" }
+bignum = { git = "https://github.com/noir-lang/noir-bignum", tag = "v0.10.0" }
 lazytower = { path = "../packages/lazytower" }
 trees = { path = "../packages/merkle-trees" }
 ecdh = { path = "../packages/ecdh" }
 binary_merkle_root = { path = "../packages/binary-merkle-root" }
-poseidon = { git = "https://github.com/noir-lang/poseidon", tag = "v0.2.6" }
+poseidon = { git = "https://github.com/noir-lang/poseidon", tag = "v0.3.0" }

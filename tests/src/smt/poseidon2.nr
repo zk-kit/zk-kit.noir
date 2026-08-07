@@ -1,4 +1,4 @@
-use poseidon::poseidon2::Poseidon2::hash;
+use poseidon::poseidon2::Poseidon2;
 use trees::sparse_merkle::{
     MembershipProver, Modifier, NonMembershipProver, SMT_Creator, SparseMerkleTree,
 };
@@ -6,7 +6,7 @@ use trees::sparse_merkle::{
 #[test]
 fn test_verify_membership_proof() {
     let root = 0x24d11b806679284b8b632c3356c87edac24b8eb17ec71284579e0ad3a7cd62ee;
-    let smt = SparseMerkleTree::from(root, |h| hash(h, 3), |h| hash(h, 2));
+    let smt = SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
 
     let key = 0x01;
     let value = 0x01;
@@ -21,7 +21,7 @@ fn test_verify_membership_proof() {
 #[test]
 fn test_verify_non_membership_proof() {
     let root = 0x2151c2f9fdef58b8a33921d853d54895d2d9c7446bc5c9cdbe71e344a5cea1ed;
-    let smt = SparseMerkleTree::from(root, |h| hash(h, 3), |h| hash(h, 2));
+    let smt = SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
 
     let key = 0x04;
     let value = 0x04;
@@ -35,7 +35,7 @@ fn test_verify_non_membership_proof() {
 
 #[test]
 fn test_add_first_element() {
-    let mut smt = SparseMerkleTree::new(|h| hash(h, 3), |h| hash(h, 2));
+    let mut smt = SparseMerkleTree::new(|h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
 
     let key = 0x01;
     let value = 0x01;
@@ -49,7 +49,8 @@ fn test_add_first_element() {
 #[test]
 fn test_add_element_to_one_element_tree() {
     let root = 0x2494b80a540ec0a0124a9dba7d5922e3250507677700e9eb680e30a279a72742;
-    let mut smt = SparseMerkleTree::from(root, |h| hash(h, 3), |h| hash(h, 2));
+    let mut smt =
+        SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
 
     let key = 0x02;
     let value = 0x02;
@@ -63,7 +64,8 @@ fn test_add_element_to_one_element_tree() {
 #[test]
 fn test_add_element_to_existing_tree() {
     let root = 0x19a364a28acf3e9de291ea791e0e7f798062926fb4fb286d0038ce048748b49b;
-    let mut smt = SparseMerkleTree::from(root, |h| hash(h, 3), |h| hash(h, 2));
+    let mut smt =
+        SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
 
     let key = 0x03;
     let value = 0x03;
@@ -81,7 +83,8 @@ fn test_add_element_to_existing_tree() {
 #[test]
 fn test_delete() {
     let root = 0x2151c2f9fdef58b8a33921d853d54895d2d9c7446bc5c9cdbe71e344a5cea1ed;
-    let mut smt = SparseMerkleTree::from(root, |h| hash(h, 3), |h| hash(h, 2));
+    let mut smt =
+        SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
 
     let key = 0x03;
     let value = 0x03;
@@ -99,7 +102,8 @@ fn test_delete() {
 #[test]
 fn test_update() {
     let root = 0x2151c2f9fdef58b8a33921d853d54895d2d9c7446bc5c9cdbe71e344a5cea1ed;
-    let mut smt = SparseMerkleTree::from(root, |h| hash(h, 3), |h| hash(h, 2));
+    let mut smt =
+        SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
 
     let key = 0x03;
     let old_value = 0x03;
