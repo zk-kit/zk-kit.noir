@@ -12,7 +12,7 @@ To use LazyTower in your project, add the library to your `Nargo.toml` file. For
 
 ```toml
 [dependencies]
-lazy_tower = { git = "https://github.com/privacy-scaling-explorations/zk-kit.noir", tag = "lazy-tower-v0.0.1", directory = "packages/lazy-tower" }
+lazy_tower = { git = "https://github.com/zk-kit/zk-kit.noir", tag = "lazy-tower-v0.0.1", directory = "packages/lazy-tower" }
 ```
 
 And import it in your file.

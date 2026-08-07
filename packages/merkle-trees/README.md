@@ -14,7 +14,8 @@ To use these trees in your project, add the lib to its `Nargo.toml` file. For ex
 
 ```toml
 [dependencies]
-trees = { git = "https://github.com/privacy-scaling-explorations/zk-kit.noir", tag = "merkle-trees-v0.0.1", directory = "packages/merkle-trees" }
+trees = { git = "https://github.com/zk-kit/zk-kit.noir", tag = "merkle-trees-v0.0.1", directory = "packages/merkle-trees" }
+poseidon = { git = "https://github.com/noir-lang/poseidon", tag = "v0.3.0" }
 ```
 
 And import it in your file.
@@ -33,10 +34,10 @@ A Merkle Tree:
 
 ```rust
 use trees::merkle::MerkleTree;
-use std::hash::poseidon2::Poseidon2::hash;
+use poseidon::poseidon2::Poseidon2;
 
 fn hasher(leaves: [Field; 2]) -> Field {
-    hash(leaves, 2)
+    Poseidon2::hash(leaves, 2)
 }
 
 fn main(entry: Field, paths: [Field; 0]) {
@@ -66,15 +67,15 @@ You can use any type you want for the leaves as long as they implement both the 
 A Sparse Merkle Tree:
 
 ```rust
-use std::hash::poseidon2::Poseidon2::hash;
+use poseidon::poseidon2::Poseidon2;
 use trees::sparse_merkle::SparseMerkleTree;
 
 fn hasher(leaves: [Field; 2]) -> Field {
-    hash(leaves, 2)
+    Poseidon2::hash(leaves, 2)
 }
 
 fn leaf_hasher(leaves: [Field; 3]) -> Field {
-    hash(leaves, 3)
+    Poseidon2::hash(leaves, 3)
 }
 
 fn main(entry: (Field, Field), index: Field, siblings: [Field; 254]) {

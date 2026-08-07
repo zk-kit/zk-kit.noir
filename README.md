@@ -13,11 +13,11 @@
     <a href="https://github.com/privacy-scaling-explorations" target="_blank">
         <img src="https://img.shields.io/badge/project-PSE-blue.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit.noir/blob/main/LICENSE">
-        <img alt="Github license" src="https://img.shields.io/github/license/privacy-scaling-explorations/zk-kit.noir.svg?style=flat-square">
+    <a href="https://github.com/zk-kit/zk-kit.noir/blob/main/LICENSE">
+        <img alt="Github license" src="https://img.shields.io/github/license/zk-kit/zk-kit.noir.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit.noir/actions?query=workflow%3Amain">
-        <img alt="GitHub Workflow test" src="https://img.shields.io/github/actions/workflow/status/privacy-scaling-explorations/zk-kit.noir/main.yml?branch=main&label=test&style=flat-square&logo=github">
+    <a href="https://github.com/zk-kit/zk-kit.noir/actions?query=workflow%3Amain">
+        <img alt="GitHub Workflow test" src="https://img.shields.io/github/actions/workflow/status/zk-kit/zk-kit.noir/main.yml?branch=main&label=test&style=flat-square&logo=github">
     </a>
     <a href="https://prettier.io/">
         <img alt="Code style prettier" src="https://img.shields.io/badge/code%20style-prettier-f8bc45?style=flat-square&logo=prettier">
@@ -37,7 +37,7 @@
             🤝 Code of conduct
         </a>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-        <a href="https://github.com/privacy-scaling-explorations/zk-kit.noir/issues/new/choose">
+        <a href="https://github.com/zk-kit/zk-kit.noir/issues/new/choose">
             🔎 Issues
         </a>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
@@ -55,22 +55,92 @@
 
 ## 🗂️ Repositories
 
-- Javascript: <https://github.com/privacy-scaling-explorations/zk-kit>
-- Solidity: <https://github.com/privacy-scaling-explorations/zk-kit.solidity>
-- Circom: <https://github.com/privacy-scaling-explorations/zk-kit.circom>
-- Noir: <https://github.com/privacy-scaling-explorations/zk-kit.noir>
+-   Circom: [zk-kit/zk-kit.circom](https://github.com/zk-kit/zk-kit.circom)
+-   Javascript: [zk-kit/zk-kit](https://github.com/zk-kit/zk-kit)
+-   Noir: [zk-kit/zk-kit.noir](https://github.com/zk-kit/zk-kit.noir)
+-   Rust: [zk-kit/zk-kit.rust](https://github.com/zk-kit/zk-kit.rust)
+-   Solidity: [zk-kit/zk-kit.solidity](https://github.com/zk-kit/zk-kit.solidity)
+- Cairo: [zk-kit/zk-kit.cairo](https://github.com/zk-kit/zk-kit.cairo)
 
 ## 📦 Packages
 
-- [merkle-trees](https://github.com/privacy-scaling-explorations/zk-kit.noir/tree/main/packages/merkle-trees)
-- [ecdh](https://github.com/privacy-scaling-explorations/zk-kit.noir/tree/main/packages/ecdh)
-- [binary-merkle-root](https://github.com/privacy-scaling-explorations/zk-kit.noir/tree/main/packages/binary-merkle-root)
+<table>
+    <th>Package</th>
+    <th>Version</th>
+    <th>Audited</th>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://github.com/zk-kit/zk-kit.noir/tree/main/packages/merkle-trees">
+                    merkle-trees
+                </a>
+            </td>
+            <td>
+                <!-- Version -->
+                <a href="https://github.com/zk-kit/zk-kit.noir/releases?q=merkle-trees&expanded=true">
+                    <img src="https://img.shields.io/github/v/tag/zk-kit/zk-kit.noir?filter=merkle-trees-*&label=version&style=flat-square" alt="Version" />
+                </a>
+            </td>
+            <td>
+                ❌
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/zk-kit/zk-kit.noir/tree/main/packages/ecdh">
+                    ecdh
+                </a>
+            </td>
+            <td>
+                <!-- Version -->
+                <a href="https://github.com/zk-kit/zk-kit.noir/releases?q=ecdh&expanded=true">
+                    <img src="https://img.shields.io/github/v/tag/zk-kit/zk-kit.noir?filter=ecdh-*&label=version&style=flat-square" alt="Version" />
+                </a>
+            </td>
+            <td>
+                ❌
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/zk-kit/zk-kit.noir/tree/main/packages/binary-merkle-root">
+                    binary-merkle-root
+                </a>
+            </td>
+            <td>
+                <!-- Version -->
+                <a href="https://github.com/zk-kit/zk-kit.noir/releases?q=binary-merkle-root&expanded=true">
+                    <img src="https://img.shields.io/github/v/tag/zk-kit/zk-kit.noir?filter=binary-merkle-root-*&label=version&style=flat-square" alt="Version" />
+                </a>
+            </td>
+            <td>
+                ❌
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/zk-kit/zk-kit.noir/tree/main/packages/lazytower">
+                    lazytower
+                </a>
+            </td>
+            <td>
+                <!-- Version -->
+                <a href="https://github.com/zk-kit/zk-kit.noir/releases?q=lazytower&expanded=true">
+                    <img src="https://img.shields.io/github/v/tag/zk-kit/zk-kit.noir?filter=lazytower-*&label=version&style=flat-square" alt="Version" />
+                </a>
+            </td>
+            <td>
+                ❌
+            </td>
+        </tr>
+    <tbody>
+</table>
 
 ## 👥 Ways to contribute
 
-- 🔧 Work on [open issues](https://github.com/privacy-scaling-explorations/zk-kit.noir/contribute)
-- 📦 Suggest new [circuits](https://github.com/privacy-scaling-explorations/zk-kit.noir/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---circuit.md&title=)
-- 🐛 Create a report if you find any [bugs](https://github.com/privacy-scaling-explorations/zk-kit.noir/issues/new?assignees=&labels=bug+%F0%9F%90%9B&template=---bug.md&title=) in the code
+- 🔧 Work on [open issues](https://github.com/zk-kit/zk-kit.noir/contribute)
+- 📦 Suggest new [circuits](https://github.com/zk-kit/zk-kit.noir/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---circuit.md&title=)
+- 🐛 Create a report if you find any [bugs](https://github.com/zk-kit/zk-kit.noir/issues/new?assignees=&labels=bug+%F0%9F%90%9B&template=---bug.md&title=) in the code
 
 > [!NOTE]\
 > Need inspiration? Check this list of circuits from the Aztec team: <https://aztecnetwork.notion.site/f06968995c124de1be359459775ca2cb?v=613d3cb893dd46899a5bd3793b01e63b>.
@@ -80,7 +150,7 @@
 Clone this repository:
 
 ```bash
-git clone https://github.com/privacy-scaling-explorations/zk-kit.noir.git
+git clone https://github.com/zk-kit/zk-kit.noir.git
 ```
 
 and install the dependencies:

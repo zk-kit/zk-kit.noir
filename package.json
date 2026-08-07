@@ -2,9 +2,9 @@
   "name": "zk-kit.noir",
   "description": "A monorepo of reusable Noir circuits.",
   "license": "MIT",
-  "repository": "git@github.com:privacy-scaling-explorations/zk-kit.noir.git",
-  "homepage": "https://github.com/privacy-scaling-explorations/zk-kit.noir",
-  "bugs": "https://github.com/privacy-scaling-explorations/zk-kit.noir/issues",
+  "repository": "git@github.com:zk-kit/zk-kit.noir.git",
+  "homepage": "https://github.com/zk-kit/zk-kit.noir",
+  "bugs": "https://github.com/zk-kit/zk-kit.noir/issues",
   "private": true,
   "scripts": {
     "check": "concurrently -c auto -n dprint,noirfmt 'dprint check' 'nargo fmt --check'",
