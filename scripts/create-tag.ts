@@ -14,22 +14,25 @@ const readmePath = `packages/${packageName}/README.md`
 
 try {
   const readme = readFileSync(readmePath, 'utf8')
-  // Bump every `tag = "<package>-vX.Y.Z"` in the install snippet.
-  const updated = readme.replace(
-    new RegExp(`tag = "${packageName}-v[0-9]+\\.[0-9]+\\.[0-9]+"`, 'g'),
-    `tag = "${tag}"`,
-  )
+  const tagPattern = `tag = "${packageName}-v[0-9]+\\.[0-9]+\\.[0-9]+"`
 
-  if (updated === readme) {
+  if (!new RegExp(tagPattern).test(readme)) {
     console.error(`❌ No install snippet with a "${packageName}-v..." tag found in ${readmePath}`)
     process.exit(1)
   }
 
-  writeFileSync(readmePath, updated)
+  // Bump every `tag = "<package>-vX.Y.Z"` in the install snippet.
+  const updated = readme.replace(new RegExp(tagPattern, 'g'), `tag = "${tag}"`)
 
-  execSync(`git add ${readmePath}`, { stdio: 'inherit' })
-  // NO_HOOK=1 skips the interactive `czg` prepare-commit-msg hook.
-  execSync(`NO_HOOK=1 git commit -m "docs(${packageName}): update install version to ${version}"`)
+  // Already at this version (e.g. a first release) — nothing to commit.
+  if (updated !== readme) {
+    writeFileSync(readmePath, updated)
+
+    execSync(`git add ${readmePath}`, { stdio: 'inherit' })
+    // NO_HOOK=1 skips the interactive `czg` prepare-commit-msg hook.
+    execSync(`NO_HOOK=1 git commit -m "docs(${packageName}): update install version to ${version}"`)
+  }
+
   execSync(`git tag ${tag}`, { stdio: 'inherit' })
 
   console.log(`✅ Updated ${readmePath} and created git tag: ${tag}`)
