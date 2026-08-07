@@ -55,11 +55,11 @@
 
 ## 🗂️ Repositories
 
--   Circom: [zk-kit/zk-kit.circom](https://github.com/zk-kit/zk-kit.circom)
--   Javascript: [zk-kit/zk-kit](https://github.com/zk-kit/zk-kit)
--   Noir: [zk-kit/zk-kit.noir](https://github.com/zk-kit/zk-kit.noir)
--   Rust: [zk-kit/zk-kit.rust](https://github.com/zk-kit/zk-kit.rust)
--   Solidity: [zk-kit/zk-kit.solidity](https://github.com/zk-kit/zk-kit.solidity)
+- Circom: [zk-kit/zk-kit.circom](https://github.com/zk-kit/zk-kit.circom)
+- Javascript: [zk-kit/zk-kit](https://github.com/zk-kit/zk-kit)
+- Noir: [zk-kit/zk-kit.noir](https://github.com/zk-kit/zk-kit.noir)
+- Rust: [zk-kit/zk-kit.rust](https://github.com/zk-kit/zk-kit.rust)
+- Solidity: [zk-kit/zk-kit.solidity](https://github.com/zk-kit/zk-kit.solidity)
 - Cairo: [zk-kit/zk-kit.cairo](https://github.com/zk-kit/zk-kit.cairo)
 
 ## 📦 Packages
