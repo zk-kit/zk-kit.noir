@@ -8,7 +8,7 @@ To import the library, add the lib to the `Nargo.toml` file. For example:
 
 ```toml
 [dependencies]
-binary_merkle_root = { git = "https://github.com/zk-kit/zk-kit.noir", tag = "binary-merkle-root-v0.0.1", directory = "packages/binary-merkle-root" }
+binary_merkle_root = { git = "https://github.com/zk-kit/zk-kit.noir", tag = "binary-merkle-root-v0.0.2", directory = "packages/binary-merkle-root" }
 poseidon = { git = "https://github.com/noir-lang/poseidon", tag = "v0.3.0" }
 ```
 
