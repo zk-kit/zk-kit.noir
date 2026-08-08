@@ -9,4 +9,5 @@ lazytower = { path = "../packages/lazytower" }
 trees = { path = "../packages/merkle-trees" }
 ecdh = { path = "../packages/ecdh" }
 binary_merkle_root = { path = "../packages/binary-merkle-root" }
+lean_imt_plus = { path = "../packages/lean-imt-plus" }
 poseidon = { git = "https://github.com/noir-lang/poseidon", tag = "v0.3.0" }
