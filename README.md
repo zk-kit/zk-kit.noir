@@ -119,6 +119,22 @@
         </tr>
         <tr>
             <td>
+                <a href="https://github.com/zk-kit/zk-kit.noir/tree/main/packages/lean-imt-plus">
+                    lean-imt-plus
+                </a>
+            </td>
+            <td>
+                <!-- Version -->
+                <a href="https://github.com/zk-kit/zk-kit.noir/releases?q=lean-imt-plus&expanded=true">
+                    <img src="https://img.shields.io/github/v/tag/zk-kit/zk-kit.noir?filter=lean-imt-plus-*&label=version&style=flat-square" alt="Version" />
+                </a>
+            </td>
+            <td>
+                ❌
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <a href="https://github.com/zk-kit/zk-kit.noir/tree/main/packages/lazytower">
                     lazytower
                 </a>

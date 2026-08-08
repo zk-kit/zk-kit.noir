@@ -3,5 +3,6 @@ members = [
   "packages/ecdh",
   "packages/merkle-trees",
   "packages/lazytower",
+  "packages/lean-imt-plus",
   "tests",
 ]
