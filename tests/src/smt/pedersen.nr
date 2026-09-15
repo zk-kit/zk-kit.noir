@@ -146,3 +146,36 @@ fn test_sparse_merkle_tree_two_roots_folds_every_sibling() {
     let (without_leaf, _with_leaf) = smt.calculate_two_roots((0, 10), 0, path);
     assert(without_leaf != root);
 }
+
+#[test(should_fail)]
+fn test_non_membership_with_relocated_siblings_fails() {
+    let root = 0x7ca084dd359e77ce4a7a683ccd717c45ecee547a73e73fd1a1cb62ec2a30961;
+    let smt = SparseMerkleTree::from(root, pedersen_hash, pedersen_hash);
+
+    // key 3 is in the tree, entry (1, 1) is its honest neighbour at depth 2
+    let key = 0x03;
+    let matching_entry = (0x01, 0x01);
+
+    // the honest siblings of key 1 sit at slots 252 and 253; moved to slots where the bits of
+    // key 3 reproduce the same left/right order, they fold to the same root
+    let mut siblings: [Field; 254] = [0; 254];
+    siblings[0] = 0x1a68908828c1c04d18fffa09d2357ac40e717b27a3dbf3f793cdb3fe27d6d17b;
+    siblings[252] = 0x206456a6a1f0ee74ce95061dfbbc35ddc4ac3644988b324b5fe50e77215f1702;
+
+    smt.non_membership(matching_entry, key, key, siblings);
+}
+
+#[test(should_fail)]
+fn test_non_membership_with_another_keys_index_fails() {
+    let root = 0x7ca084dd359e77ce4a7a683ccd717c45ecee547a73e73fd1a1cb62ec2a30961;
+    let smt = SparseMerkleTree::from(root, pedersen_hash, pedersen_hash);
+
+    // key 3 is in the tree; the proof walks the honest path of key 1 instead
+    let key = 0x03;
+    let matching_entry = (0x01, 0x01);
+    let mut siblings: [Field; 254] = [0; 254];
+    siblings[252] = 0x1a68908828c1c04d18fffa09d2357ac40e717b27a3dbf3f793cdb3fe27d6d17b;
+    siblings[253] = 0x206456a6a1f0ee74ce95061dfbbc35ddc4ac3644988b324b5fe50e77215f1702;
+
+    smt.non_membership(matching_entry, key, matching_entry.0, siblings);
+}
