@@ -41,7 +41,7 @@
             🔎 Issues
         </a>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-        <a href="https://appliedzkp.org/discord">
+        <a href="https://discord.gg/pse">
             🗣️ Chat &amp; Support
         </a>
     </h4>
