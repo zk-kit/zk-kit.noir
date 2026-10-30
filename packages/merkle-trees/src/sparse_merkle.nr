@@ -6,6 +6,20 @@ pub struct SparseMerkleTree<T> {
     pub hasher: fn([T; 2]) -> T,
 }
 
+impl<T> SparseMerkleTree<T>
+where
+    T: Eq + Default,
+{
+    // hashes a node with its sibling, the path bit deciding which of the two is on the left
+    fn hash_level(self, node: T, sibling: T, is_right: bool) -> T {
+        if is_right {
+            (self.hasher)([sibling, node])
+        } else {
+            (self.hasher)([node, sibling])
+        }
+    }
+}
+
 impl<T> SMT_Creator<T> for SparseMerkleTree<T>
 where
     T: Eq + Default,
@@ -36,7 +50,7 @@ where
 
 impl<T> NonMembershipProver<T, (T, T)> for SparseMerkleTree<T>
 where
-    T: Eq + Default,
+    T: Eq + Default + From<Field>,
 {
     fn non_membership<let N: u32>(
         self,
@@ -48,10 +62,13 @@ where
         if (self.root != T::default()) {
             // Ensure the matching entry's key is different from the queried key
             assert(matching_entry.0 != queried_key);
+            // Ensure the path that is walked below is the queried key's
+            assert(T::from(index) == queried_key);
 
             // non-membership proof: the root is calculated based on the matching_entry, the siblings
-            // and the path that is determined by the key of entry. This makes sure that matching_entry is in fact
-            // a matching entry for entry meaning that it shares the same first bits as path
+            // and the path of the queried key. Every level from the matching entry up to the root is
+            // hashed, so the root only matches if the matching entry sits at that depth on the
+            // queried key's path, ie the two keys share their first bits
             let calculated_root = self.calculate_root(matching_entry, index, siblings);
             assert(calculated_root == self.root);
         }
@@ -99,19 +116,18 @@ where
         let mut old_parent = (self.leaf_hasher)([old_value.0, old_value.1, T::default()]);
         // new_parent is a container to temporarily store the nodes that ultimately lead to the NEW root
         let mut new_parent = (self.leaf_hasher)([new_value.0, new_value.1, T::default()]);
-        // starting from the bottom of the tree, for each level it checks whether there is a sibling and if
-        // that is the case, it hashes the two containers with the sibling and updates the containers with the
-        // resulting hashes until the uppermost level is reached aka the root node
+        // starting from the deepest sibling, for each level up to the root it hashes the two
+        // containers with the sibling, a zero sibling included, and updates the containers with
+        // the resulting hashes
+        let mut found_first = false;
         for i in 0..hash_path.len() {
             let sibling = hash_path[i];
             if sibling != T::default() {
-                if path[i] {
-                    new_parent = (self.hasher)([sibling, new_parent]);
-                    old_parent = (self.hasher)([sibling, old_parent]);
-                } else {
-                    new_parent = (self.hasher)([new_parent, sibling]);
-                    old_parent = (self.hasher)([old_parent, sibling]);
-                }
+                found_first = true;
+            }
+            if found_first {
+                new_parent = self.hash_level(new_parent, sibling, path[i]);
+                old_parent = self.hash_level(old_parent, sibling, path[i]);
             }
         }
         assert(old_parent == self.root);
@@ -135,21 +151,17 @@ where
 
         // serves as container for hashes and is initialized to be the leaf node
         let mut node = (self.leaf_hasher)([entry.0, entry.1, T::default()]);
-        // iterates over the list of siblings until the first sibling is found
-        // arbitrarily assigns the sibling to be the left and the node to be the
-        // right element of the hashing pair unless the path indicates the opposite
-        // order in which case the order is changed. The new hash is stored in the container
-        // until the root node is reached and returned.
+        // the slots below the deepest sibling are padding. From that sibling up to the root
+        // every level is hashed, a zero sibling included, so that the slot of a sibling is its
+        // level in the tree and the path bit of every level is read.
+        let mut found_first = false;
         for i in 0..hash_path.len() {
             let sibling = hash_path[i];
             if sibling != T::default() {
-                let mut left = sibling;
-                let mut right = node;
-                if !index_bits[i] {
-                    left = node;
-                    right = sibling;
-                }
-                node = (self.hasher)([left, right]);
+                found_first = true;
+            }
+            if found_first {
+                node = self.hash_level(node, sibling, index_bits[i]);
             }
         }
         node
@@ -178,33 +190,27 @@ where
         // root_without_leaf is a container for hashes to derive the root node for the tree that
         // doesn't include the entry
         let mut root_without_leaf = T::default();
-        // whether the first nonzero sibling has been seeded into root_without_leaf
+        // whether the deepest sibling has been reached: from there up every level is hashed
         let mut found_first = false;
+        // whether the second non-zero sibling has been reached. Without the entry the deepest
+        // sibling sits at that sibling's level, so the zero siblings between the two are levels
+        // that only exist in the tree that includes the entry.
+        let mut found_second = false;
         // iterate over the levels of the tree from bottom to top
         for i in 0..hash_path.len() {
             let sibling = hash_path[i];
-            // After the first sibling is found, the processes are started to calculate the two root nodes.
-            // The calulcation of the root node that includes the entry is comparable to `calculate_root`.
-            // To calc the root node that doesn't include entry, the first sibling is put into the container
-            // and starting from each SUBSEQUENT iteration it is hashed with its sibling and the resulting hash
-            // again stored in the container until the root is reached
-            if sibling != T::default() {
-                if index_bits[i] {
-                    root_with_leaf = (self.hasher)([sibling, root_with_leaf]);
-                    if found_first {
-                        root_without_leaf = (self.hasher)([sibling, root_without_leaf]);
-                    }
-                } else {
-                    root_with_leaf = (self.hasher)([root_with_leaf, sibling]);
-                    if found_first {
-                        root_without_leaf = (self.hasher)([root_without_leaf, sibling]);
-                    }
+            if found_first {
+                root_with_leaf = self.hash_level(root_with_leaf, sibling, index_bits[i]);
+                if sibling != T::default() {
+                    found_second = true;
                 }
-
-                if !found_first {
-                    root_without_leaf = sibling;
-                    found_first = true;
+                if found_second {
+                    root_without_leaf = self.hash_level(root_without_leaf, sibling, index_bits[i]);
                 }
+            } else if sibling != T::default() {
+                found_first = true;
+                root_with_leaf = self.hash_level(root_with_leaf, sibling, index_bits[i]);
+                root_without_leaf = sibling;
             }
         }
 

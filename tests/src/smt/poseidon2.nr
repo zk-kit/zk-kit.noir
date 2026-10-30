@@ -119,3 +119,69 @@ fn test_update() {
 
     assert(smt.root == big_tree_root);
 }
+
+// The fixtures below come from the zk-kit JS implementation with the leaf marker set to 0.
+// In the tree {1, 5} the two keys share their first two bits, so key 1 sits at depth 3 with
+// zero siblings at depths 1 and 2 that are hashed like any other node.
+
+#[test]
+fn test_verify_membership_proof_with_zero_siblings_above_leaf() {
+    let root = 0x5031db24d9aac5f6e188f688ea323173efdb6fc46285e1f6f0c56462850f6c1;
+    let smt = SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
+
+    let entry = (0x01, 0x01);
+    let mut siblings: [Field; 254] = [0; 254];
+    siblings[251] = 0x2520be3283e6f589edb2ca00d845ca917467410de10336dab15df75f2c0747d0;
+
+    smt.membership(entry, entry.0, siblings);
+}
+
+#[test]
+fn test_verify_non_membership_proof_with_zero_siblings_above_leaf() {
+    let root = 0x5031db24d9aac5f6e188f688ea323173efdb6fc46285e1f6f0c56462850f6c1;
+    let smt = SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
+
+    // key 9 shares its first three bits with key 1, so its path ends at the entry (1, 1)
+    let key = 0x09;
+    let matching_entry = (0x01, 0x01);
+    let mut siblings: [Field; 254] = [0; 254];
+    siblings[251] = 0x2520be3283e6f589edb2ca00d845ca917467410de10336dab15df75f2c0747d0;
+
+    smt.non_membership(matching_entry, key, key, siblings);
+}
+
+#[test]
+fn test_add_element_below_zero_siblings() {
+    let root = 0x5031db24d9aac5f6e188f688ea323173efdb6fc46285e1f6f0c56462850f6c1;
+    let mut smt =
+        SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
+
+    // key 9 diverges from key 1 at bit 3, so entry (1, 1) becomes its sibling at depth 4
+    let entry = (0x09, 0x09);
+    let mut siblings: [Field; 254] = [0; 254];
+    siblings[250] = 0x2494b80a540ec0a0124a9dba7d5922e3250507677700e9eb680e30a279a72742;
+    siblings[251] = 0x2520be3283e6f589edb2ca00d845ca917467410de10336dab15df75f2c0747d0;
+
+    smt.add(entry, entry.0, siblings);
+
+    assert(smt.root == 0x23a558dd3b5db965c2f8b47613fb3de2e23d28ff9b3270f4e8f294d455617987);
+}
+
+#[test]
+fn test_add_element_with_zero_siblings_between_old_and_new_depth() {
+    // tree {1, 2}: key 1 sits at depth 1
+    let root = 0x19a364a28acf3e9de291ea791e0e7f798062926fb4fb286d0038ce048748b49b;
+    let mut smt =
+        SparseMerkleTree::from(root, |h| Poseidon2::hash(h, 3), |h| Poseidon2::hash(h, 2));
+
+    // key 5 diverges from key 1 at bit 2, so entry (1, 1) moves down to depth 3 and the zero
+    // sibling at depth 1 is new: it is hashed into the new root but was not part of the old one
+    let entry = (0x05, 0x05);
+    let mut siblings: [Field; 254] = [0; 254];
+    siblings[251] = 0x2494b80a540ec0a0124a9dba7d5922e3250507677700e9eb680e30a279a72742;
+    siblings[253] = 0x30065fe2f3e2a11bb56ee7dd53657ffa4681ffcfd9403ef43b306996e2c2d022;
+
+    smt.add(entry, entry.0, siblings);
+
+    assert(smt.root == 0x58035a94bb80951df5f3e3d99dce73a43301d45779fed60fd5a34352be2901c);
+}
